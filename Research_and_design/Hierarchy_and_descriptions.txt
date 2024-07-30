@@ -1,0 +1,13 @@
+Flashcard contains the entire app
+ChapterNav is used to navigate different sets of cards
+CardNav is used to navigate within sets
+QuestionAndAnswerField holds the answer/question text and flip card button
+QuestionAnswerText displays the question/answer
+FlipCardButton displays either the question or answer
+
+Flashcard
+	ChapterNav
+	CardNav
+	QuestionAnswerField
+		QuestionAnswerText
+		FlipCardButton

@@ -54,3 +54,15 @@ div#root {
   outline: auto;
   padding: 2em;
 }
+
+.qa-field {
+  margin: 0 auto;
+  text-align: center;
+  flex-basis: 100%;
+}
+
+.flashcard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
