@@ -1,26 +1,42 @@
 import { useState } from 'react';
 
-function QuestionAnswerText({ question, answer }) {
+function QuestionAnswerText({ question, answer, displayQuestion }) {  
   return (
     <>
-      <p>{question}</p>
+      <p>{displayQuestion ? question : answer}</p>
     </>
   );
 }
 
-function FlipCardButton() {
+function FlipCardButton({ onFlipCardChange }) {
   return (
     <>
-      <input type='button' value='Flip Card'></input>
+      <input 
+        type='button'
+        value='Flip Card'
+        onClick={onFlipCardChange}
+      >
+        </input>
     </>
   );
 }
 
 function QuestionAnswerField({ target_card }) {
+  const [displayQuestion, setDisplayQuestion] = useState(true);
+
+  function handleCardFlip() {
+    setDisplayQuestion(!displayQuestion);
+  }
+
   return (
     <div className='qa-field'>
-      <QuestionAnswerText question={target_card['question']} answer={'answer'}/>
-      <FlipCardButton />
+      <QuestionAnswerText
+       question={target_card['question']}
+       answer={target_card['answer']}
+       displayQuestion={displayQuestion} />
+      <FlipCardButton 
+        onFlipCardChange={handleCardFlip}
+      />
     </div>
   );
 }
@@ -49,7 +65,7 @@ function Flashcard({ data }) {
     <div className='flashcard'>
       <ChapterNav />
       <CardNav />
-      <QuestionAnswerField target_card={data[0]} />
+      <QuestionAnswerField target_card={data[0]}/>
     </div>
   );
 }
