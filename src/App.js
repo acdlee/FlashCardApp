@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-function QuestionAnswerText() {
+function QuestionAnswerText({ question, answer }) {
   return (
     <>
-      <p>Question Goes Here.</p>
+      <p>{question}</p>
     </>
   );
 }
@@ -16,10 +16,10 @@ function FlipCardButton() {
   );
 }
 
-function QuestionAnswerField() {
+function QuestionAnswerField({ target_card }) {
   return (
     <div className='qa-field'>
-      <QuestionAnswerText />
+      <QuestionAnswerText question={target_card['question']} answer={'answer'}/>
       <FlipCardButton />
     </div>
   );
@@ -49,7 +49,7 @@ function Flashcard({ data }) {
     <div className='flashcard'>
       <ChapterNav />
       <CardNav />
-      <QuestionAnswerField />
+      <QuestionAnswerField target_card={data[0]} />
     </div>
   );
 }
