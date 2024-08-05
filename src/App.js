@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import arrow from './arrow.png';
+import arrow from './images/arrow.png';
 
 function QuestionAnswerText({ question, answer, displayQuestion }) {  
   return (

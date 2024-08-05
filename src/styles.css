@@ -1,3 +1,4 @@
+/* General Elements */
 * {
   box-sizing: border-box;
 }
@@ -7,27 +8,29 @@ html {
 }
 
 body {
-  height: 100%;
   font-family: "Oswald", sans-serif;
+  height: 100%;
   margin: 20px;
   padding: 0;
-  /* background-image: linear-gradient(to bottom right, #eb770c, #ac21c2); */
-  background-image: url(/src/background.png);
+  
+  background-image: url(/src/images/background.png);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
 h1 {
   display: block;
-  padding: .5em;
-  font-size: 3em;
-  text-align: center;
-  margin: 1em auto;
-  color: #f2e8f3;
   width: 8em;
+  margin: 1em auto;
+  padding: .5em;
+
   background-color: #532593;
   box-shadow: 0px 0px 5px #9527f0;
   border-radius: 10px;
+
+  font-size: 3em;
+  text-align: center;
+  color: #f2e8f3;
 }
 
 h2 {
@@ -63,6 +66,8 @@ ul {
   padding-inline-start: 20px;
 }
 
+/* Root elements */
+
 div#root {
   width: 80%;
   height: 450px;
@@ -71,7 +76,7 @@ div#root {
   margin: 4em auto;
   padding: 2em;
 
-  background-image: url(/src/foreground.png);
+  background-image: url(/src/images/foreground.png);
   box-shadow: 0px 0px 10px #9527f0;
   border-radius: 10px;
 
@@ -80,12 +85,49 @@ div#root {
   font-size: 1.2em;
 }
 
+/* Styles for the flashcard */
+.flashcard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+    /* Styles for the qa-field */
+
 .qa-field {
   margin: 0 auto;
   padding: 2em;
   text-align: center;
   flex-basis: 100%;
 }
+
+.qa-field input {
+  margin-top: 5em;
+  padding: 1em;
+
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #cba8fc;
+  background-color: #cba8fc;
+  border: none;
+
+  font-size: 1.025em;
+  font-weight: 600;
+  color: #532593;
+
+  cursor: pointer;
+  transition: ease-in-out all .2s, transform ;
+}
+
+.qa-field input:hover {
+  box-shadow: 0 0 12px #ffd100;
+}
+
+.qa-field input:active {
+  box-shadow: 0 0 12px #ffd100;
+  background-color: #ffd100;
+}
+
+    /* Styles for the card navigation */
 
 .card-nav input[type="image"] {
   width: 50px;
@@ -97,36 +139,10 @@ div#root {
   transform: scaleX(-1);
 }
 
-.flashcard {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
+    /* Styles for the chapter navigation */
 .chapter-nav p {
-  font-size: 1.35em;
   margin-top: .5em;
+
+  font-size: 1.35em;
 }
 
-.qa-field input {
-  margin-top: 5em;
-  padding: 1em;
-  border-radius: 5px;
-  font-size: 1.025em;
-  box-shadow: 0px 0px 5px #cba8fc;
-  background-color: #cba8fc;
-  color: #532593;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: ease-in-out all .2s;
-}
-
-.qa-field input:hover {
-  box-shadow: 0 0 12px #ffd100;
-}
-
-.qa-field input:active {
-  box-shadow: 0 0 12px #ffd100;
-  background-color: #ffd100;
-}
