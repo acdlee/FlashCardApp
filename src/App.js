@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import arrow from './arrow.png';
 
 function QuestionAnswerText({ question, answer, displayQuestion }) {  
   return (
@@ -43,9 +44,9 @@ function QuestionAnswerField({ target_card }) {
 
 function CardNav() {
   return (
-    <div>
-      <input type='button' value='Left'></input>
-      <input type='button' value='Right'></input>
+    <div className='card-nav'>
+      <input type='image' src={arrow}></input>
+      <input type='image' src={arrow}></input>
     </div>
   );
 }
@@ -53,7 +54,7 @@ function CardNav() {
 function ChapterNav() {
   return (
     <>
-      <nav>
+      <nav className='chapter-nav'>
         <p>Chapter 1</p>
       </nav>
     </>

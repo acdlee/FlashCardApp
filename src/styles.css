@@ -2,17 +2,32 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  font-family: sans-serif;
+  height: 100%;
+  font-family: "Oswald", sans-serif;
   margin: 20px;
   padding: 0;
+  /* background-image: linear-gradient(to bottom right, #eb770c, #ac21c2); */
+  background-image: url(/src/background.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1 {
-  margin-top: 0;
+  display: block;
+  padding: .5em;
   font-size: 3em;
   text-align: center;
-  margin: 0 auto;
+  margin: 1em auto;
+  color: #f2e8f3;
+  width: 8em;
+  background-color: #532593;
+  box-shadow: 0px 0px 5px #9527f0;
+  border-radius: 10px;
 }
 
 h2 {
@@ -50,19 +65,68 @@ ul {
 
 div#root {
   width: 80%;
+  height: 450px;
+  max-width: 1000px;
+  min-width: 750px;
   margin: 4em auto;
-  outline: auto;
   padding: 2em;
+
+  background-image: url(/src/foreground.png);
+  box-shadow: 0px 0px 10px #9527f0;
+  border-radius: 10px;
+
+  font-weight: 400;
+  color: #f2e8f3;
+  font-size: 1.2em;
 }
 
 .qa-field {
   margin: 0 auto;
+  padding: 2em;
   text-align: center;
   flex-basis: 100%;
+}
+
+.card-nav input[type="image"] {
+  width: 50px;
+  height: 50px;
+  margin: 1em;
+}
+
+.card-nav input[type="image"]:nth-of-type(even) {
+  transform: scaleX(-1);
 }
 
 .flashcard {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.chapter-nav p {
+  font-size: 1.35em;
+  margin-top: .5em;
+}
+
+.qa-field input {
+  margin-top: 5em;
+  padding: 1em;
+  border-radius: 5px;
+  font-size: 1.025em;
+  box-shadow: 0px 0px 5px #cba8fc;
+  background-color: #cba8fc;
+  color: #532593;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: ease-in-out all .2s;
+}
+
+.qa-field input:hover {
+  box-shadow: 0 0 12px #ffd100;
+}
+
+.qa-field input:active {
+  box-shadow: 0 0 12px #ffd100;
+  background-color: #ffd100;
 }
