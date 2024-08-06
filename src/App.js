@@ -22,13 +22,7 @@ function FlipCardButton({ onFlipCardChange }) {
   );
 }
 
-function QuestionAnswerField({ target_card }) {
-  const [displayQuestion, setDisplayQuestion] = useState(true);
-
-  function handleCardFlip() {
-    setDisplayQuestion(!displayQuestion);
-  }
-
+function QuestionAnswerField({ target_card, displayQuestion, handleCardFlip }) {
   return (
     <div className='qa-field'>
       <QuestionAnswerText
@@ -63,28 +57,30 @@ function ChapterNav() {
 
 function Flashcard({ data }) {
   const [cardNavCounter, setCardNavCounter] = useState(0);
+  const [displayQuestion, setDisplayQuestion] = useState(true);
+
+  function handleCardFlip() {
+    setDisplayQuestion(!displayQuestion);
+  }
 
   function handleCardNav(arrowId) {
-    // let newCard = cardNavCounter + (arrowId == "Left") ? -1 : 1;
-    // if (newCard >= 0) {
-    //   console.log("got here");
-    //   setCardNavCounter(newCard);
-    // }
-    // console.log(newCard);
-    // console.log(cardNavCounter);
     if (arrowId == "Left" && cardNavCounter > 0) {
       setCardNavCounter(cardNavCounter - 1);
     } else if (arrowId == "Right" && cardNavCounter < data[0].length - 1) {
       setCardNavCounter(cardNavCounter + 1);
     }
-    console.log(cardNavCounter);
+    // on card change, set the card display to question
+    setDisplayQuestion(true);
   }
 
   return (
     <div className='flashcard'>
       <ChapterNav />
       <CardNav onArrowClick={handleCardNav} />
-      <QuestionAnswerField target_card={data[0][cardNavCounter]}/>
+      <QuestionAnswerField 
+        target_card={data[0][cardNavCounter]} 
+        displayQuestion={displayQuestion} 
+        handleCardFlip={handleCardFlip} />
     </div>
   );
 }
