@@ -46,11 +46,18 @@ function CardNav({ onArrowClick, cardNumber }) {
   );
 }
 
-function ChapterNav() {
+function ChapterNav({ data }) {
+  const chapters = data.map((arr) => {
+    return (
+    <li key={arr[0]['chapter']}>
+      Chapter {arr[0]['chapter']}
+    </li>);
+  });
+
   return (
     <>
       <nav className='chapter-nav'>
-        <p>Chapter 1</p>
+        <ul>{chapters}</ul>
       </nav>
     </>
   );  
@@ -76,7 +83,7 @@ function Flashcard({ data }) {
 
   return (
     <div className='flashcard'>
-      <ChapterNav />
+      <ChapterNav data={data} />
       <CardNav
         onArrowClick={handleCardNav} 
         cardNumber={cardNavCounter}/>
