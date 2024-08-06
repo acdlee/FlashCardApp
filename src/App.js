@@ -36,10 +36,11 @@ function QuestionAnswerField({ target_card, displayQuestion, handleCardFlip }) {
   );
 }
 
-function CardNav({ onArrowClick }) {
+function CardNav({ onArrowClick, cardNumber }) {
   return (
     <div className='card-nav'>
       <input onClick={(e) => onArrowClick(e.target.id)} type='image' src={arrow} id='Left'></input>
+      <span>{cardNumber + 1}</span>
       <input onClick={(e) => onArrowClick(e.target.id)} type='image' src={arrow} id='Right'></input>
     </div>
   );
@@ -76,7 +77,9 @@ function Flashcard({ data }) {
   return (
     <div className='flashcard'>
       <ChapterNav />
-      <CardNav onArrowClick={handleCardNav} />
+      <CardNav
+        onArrowClick={handleCardNav} 
+        cardNumber={cardNavCounter}/>
       <QuestionAnswerField 
         target_card={data[0][cardNavCounter]} 
         displayQuestion={displayQuestion} 
