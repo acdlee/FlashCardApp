@@ -118,15 +118,6 @@ div#root {
   transition: ease-in-out all .2s, transform ;
 }
 
-.qa-field input:hover {
-  box-shadow: 0 0 12px #ffd100;
-}
-
-.qa-field input:active {
-  box-shadow: 0 0 12px #ffd100;
-  background-color: #ffd100;
-}
-
     /* Styles for the card navigation */
 
 .card-nav input[type="image"] {
@@ -146,3 +137,20 @@ div#root {
   font-size: 1.35em;
 }
 
+    /* Hover and active states */
+.qa-field input:hover {
+  box-shadow: 0 0 12px #ffd100;
+}
+
+.qa-field input:active {
+  box-shadow: 0 0 12px #ffd100;
+  background-color: #ffd100;
+}
+
+.card-nav input:hover {
+  border-bottom: 2px dashed #ffd100;
+}
+
+.card-nav input:active {
+  border-bottom: 4px solid #ffd100;
+}
