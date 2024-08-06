@@ -42,11 +42,11 @@ function QuestionAnswerField({ target_card }) {
   );
 }
 
-function CardNav() {
+function CardNav({ onArrowClick }) {
   return (
     <div className='card-nav'>
-      <input type='image' src={arrow}></input>
-      <input type='image' src={arrow}></input>
+      <input onClick={(e) => onArrowClick(e.target.id)} type='image' src={arrow} id='Left'></input>
+      <input onClick={(e) => onArrowClick(e.target.id)} type='image' src={arrow} id='Right'></input>
     </div>
   );
 }
@@ -62,19 +62,44 @@ function ChapterNav() {
 }
 
 function Flashcard({ data }) {
+  const [cardNavCounter, setCardNavCounter] = useState(0);
+
+  function handleCardNav(arrowId) {
+    // let newCard = cardNavCounter + (arrowId == "Left") ? -1 : 1;
+    // if (newCard >= 0) {
+    //   console.log("got here");
+    //   setCardNavCounter(newCard);
+    // }
+    // console.log(newCard);
+    // console.log(cardNavCounter);
+    if (arrowId == "Left" && cardNavCounter > 0) {
+      setCardNavCounter(cardNavCounter - 1);
+    } else if (arrowId == "Right" && cardNavCounter < data[0].length - 1) {
+      setCardNavCounter(cardNavCounter + 1);
+    }
+    console.log(cardNavCounter);
+  }
+
   return (
     <div className='flashcard'>
       <ChapterNav />
-      <CardNav />
-      <QuestionAnswerField target_card={data[0]}/>
+      <CardNav onArrowClick={handleCardNav} />
+      <QuestionAnswerField target_card={data[0][cardNavCounter]}/>
     </div>
   );
 }
 
 const DATA = [
-  {id: 1, chapter: 1, question: "What is a training instance?", answer: "One training iteration through all the data."},
-  {id: 2, chapter: 1, question: "Why use machine learning?", answer: "To accomplish tasks infeasible for a human."},
-  {id: 3, chapter: 1, question: "What is machine learning?", answer: "A computer being trained to improve at a task, by some performance measure."},
+  [
+    {id: 1, chapter: 1, question: "What is a training instance?", answer: "One training iteration through all the data."},
+    {id: 2, chapter: 1, question: "Why use machine learning?", answer: "To accomplish tasks infeasible for a human."},
+    {id: 3, chapter: 1, question: "What is machine learning?", answer: "A computer being trained to improve at a task, by some performance measure."},
+  ],
+  [    
+    {id: 4, chapter: 2, question: "What is 2+2", answer: "It's 4 silly!."},
+    {id: 5, chapter: 2, question: "What is the integral of x squared?", answer: "x to the third, all divided by 3... + C!"},
+    {id: 6, chapter: 2, question: "Cats or dogs?", answer: "Cats."},
+  ]
 ];
 
 export default function App() {

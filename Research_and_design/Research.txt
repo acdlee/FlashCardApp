@@ -1,2 +1,5 @@
 Collapsible nav (for the chapter list):
 https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390
+
+I like the color pallete of this website:
+https://dribbble.com/shots/24610897-Online-Courses-Website
