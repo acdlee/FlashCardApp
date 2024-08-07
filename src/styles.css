@@ -152,7 +152,19 @@ div#root {
 }
 
 .chapter-nav ul {
+  visibility: hidden;
   list-style: none;
+  position: absolute;
+  padding-left: 2px;
+}
+
+.chapter-nav ul li {
+  margin: .2em;
+}
+
+.chapter-nav ul li a {
+  color: #f2e8f3;
+  text-decoration: none;
 }
 
     /* Hover and active states */
@@ -165,15 +177,19 @@ div#root {
   background-color: #ffd100;
 }
 
-.card-nav input:hover {
+.card-nav input:hover, .chapter-nav ul li:hover {
   border-bottom: 2px dashed #ffd100;
 }
 
-.card-nav input:active {
+.card-nav input:active, .chapter-nav ul li:active {
   border-bottom: 4px solid #ffd100;
 }
 
     /* Animations */
 .chapter-nav input.chapter-nav-animation {
   transform: rotate(405deg);
+}
+
+.chapter-nav ul.open {
+  visibility: visible;
 }

@@ -57,7 +57,7 @@ function ChapterNav({ currentChapter, data }) {
   const chapters = data.map((arr) => {
     return (
     <li key={arr[0]['chapter']}>
-      Chapter {arr[0]['chapter']}
+      <a href='#'>Chapter {arr[0]['chapter']}</a>
     </li>);
   });
 
@@ -70,11 +70,13 @@ function ChapterNav({ currentChapter, data }) {
             src={cross}
             className={chapterNavAnimation ? 'chapter-nav-animation' : ''}
             onClick={() => handleChapterNavClick()}></input>
-          <span>Chapter {currentChapter + 1}</span>
+          <span>{chapterNavAnimation ? "Pick a chapter!" : "Chapter " + (currentChapter + 1)}</span>
         </div>
-        <div className='menu-content'>
-          <ul>{chapters}</ul>
+        <div className='drop-down'>
+          <ul
+            className={chapterNavAnimation ? 'open' : ''}>{chapters}</ul>
         </div>
+
       </div>
     </>
   );  
