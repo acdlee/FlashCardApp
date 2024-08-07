@@ -48,6 +48,12 @@ function CardNav({ onArrowClick, cardNumber }) {
 }
 
 function ChapterNav({ currentChapter, data }) {
+  const [chapterNavAnimation, setChapterNavAnimation] = useState(false);
+
+  function handleChapterNavClick() {
+    setChapterNavAnimation(!chapterNavAnimation);
+  }
+
   const chapters = data.map((arr) => {
     return (
     <li key={arr[0]['chapter']}>
@@ -59,7 +65,11 @@ function ChapterNav({ currentChapter, data }) {
     <>
       <div className='chapter-nav'>
         <div className='chapter-nav-control'>
-          <input type='image' src={cross}></input>
+          <input
+            type='image' 
+            src={cross}
+            className={chapterNavAnimation ? 'chapter-nav-animation' : ''}
+            onClick={() => handleChapterNavClick()}></input>
           <span>Chapter {currentChapter + 1}</span>
         </div>
         <div className='menu-content'>

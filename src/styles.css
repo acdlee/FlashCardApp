@@ -143,6 +143,7 @@ div#root {
   width: 40px;
   height: 40px;
   margin-top: 12px;
+  transition: transform 0.6s ease-in-out;
 }
 
 .chapter-nav span {
@@ -170,4 +171,9 @@ div#root {
 
 .card-nav input:active {
   border-bottom: 4px solid #ffd100;
+}
+
+    /* Animations */
+.chapter-nav input.chapter-nav-animation {
+  transform: rotate(405deg);
 }
