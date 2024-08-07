@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import arrow from './images/arrow.png';
+import cross from './images/chapter_nav_cross.png'
 
 function QuestionAnswerText({ question, answer, displayQuestion }) {  
   return (
@@ -46,7 +47,7 @@ function CardNav({ onArrowClick, cardNumber }) {
   );
 }
 
-function ChapterNav({ data }) {
+function ChapterNav({ currentChapter, data }) {
   const chapters = data.map((arr) => {
     return (
     <li key={arr[0]['chapter']}>
@@ -56,9 +57,15 @@ function ChapterNav({ data }) {
 
   return (
     <>
-      <nav className='chapter-nav'>
-        <ul>{chapters}</ul>
-      </nav>
+      <div className='chapter-nav'>
+        <div className='chapter-nav-control'>
+          <input type='image' src={cross}></input>
+          <span>Chapter {currentChapter + 1}</span>
+        </div>
+        <div className='menu-content'>
+          <ul>{chapters}</ul>
+        </div>
+      </div>
     </>
   );  
 }
@@ -66,6 +73,7 @@ function ChapterNav({ data }) {
 function Flashcard({ data }) {
   const [cardNavCounter, setCardNavCounter] = useState(0);
   const [displayQuestion, setDisplayQuestion] = useState(true);
+  const [currentChapter, setCurrentChapter] = useState(0);
 
   function handleCardFlip() {
     setDisplayQuestion(!displayQuestion);
@@ -83,7 +91,9 @@ function Flashcard({ data }) {
 
   return (
     <div className='flashcard'>
-      <ChapterNav data={data} />
+      <ChapterNav
+      currentChapter={currentChapter}
+      data={data} />
       <CardNav
         onArrowClick={handleCardNav} 
         cardNumber={cardNavCounter}/>
