@@ -152,19 +152,26 @@ div#root {
 }
 
 .chapter-nav ul {
-  visibility: hidden;
-  list-style: none;
   position: absolute;
+  transition: height 0.5s ease;
+  overflow: hidden;
+  list-style: none;
   padding-left: 2px;
+  width: auto;
 }
 
 .chapter-nav ul li {
   margin: .2em;
+  width: 100%;
 }
 
 .chapter-nav ul li a {
   color: #f2e8f3;
   text-decoration: none;
+}
+
+#drop-down-menu:not(.active) {
+  display: none;
 }
 
     /* Hover and active states */
@@ -188,8 +195,4 @@ div#root {
     /* Animations */
 .chapter-nav input.chapter-nav-animation {
   transform: rotate(405deg);
-}
-
-.chapter-nav ul.open {
-  visibility: visible;
 }

@@ -17,8 +17,7 @@ function FlipCardButton({ onFlipCardChange }) {
         type='button'
         value='Flip Card'
         onClick={onFlipCardChange}
-      >
-        </input>
+      ></input>
     </>
   );
 }
@@ -51,6 +50,25 @@ function ChapterNav({ currentChapter, data }) {
   const [chapterNavAnimation, setChapterNavAnimation] = useState(false);
 
   function handleChapterNavClick() {
+    // handle nav-slide animation
+    const menu = document.getElementById('drop-down-menu');
+    if (!menu.classList.contains('active')) {
+      // show menu
+      menu.classList.add('active');
+      menu.style.height = "auto";
+
+      let height = menu.clientHeight + 'px';
+      menu.style.height = "0px";
+
+      setTimeout(() => {
+        menu.style.height = height;
+      }, 0);
+    } else {
+      // remove menu
+      menu.style.height = "0px";
+      menu.classList.remove('active');
+    }
+    
     setChapterNavAnimation(!chapterNavAnimation);
   }
 
@@ -72,11 +90,7 @@ function ChapterNav({ currentChapter, data }) {
             onClick={() => handleChapterNavClick()}></input>
           <span>{chapterNavAnimation ? "Pick a chapter!" : "Chapter " + (currentChapter + 1)}</span>
         </div>
-        <div className='drop-down'>
-          <ul
-            className={chapterNavAnimation ? 'open' : ''}>{chapters}</ul>
-        </div>
-
+        <ul id='drop-down-menu'>{chapters}</ul>
       </div>
     </>
   );  
