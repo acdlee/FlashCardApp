@@ -32,6 +32,8 @@ h1 {
   font-size: 3em;
   text-align: center;
   color: #f2e8f3;
+
+  cursor: pointer;
 }
 
 h2 {
@@ -192,6 +194,10 @@ div#root {
 
 .card-nav input:active, .chapter-nav ul li:active {
   border-bottom: 4px solid #ffd100;
+}
+
+h1:hover {
+  box-shadow: 0 0 12px #ffd100;
 }
 
     /* Animations */
