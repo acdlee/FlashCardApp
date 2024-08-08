@@ -46,8 +46,8 @@ function CardNav({ onArrowClick, cardNumber }) {
   );
 }
 
-function ChapterNav({ currentChapter, data }) {
-  const [chapterNavAnimation, setChapterNavAnimation] = useState(false);
+function ChapterNav({ onChapterChange, currentChapter, data }) {
+  const [chapterNavState, setChapterNavState] = useState(false);
 
   function handleChapterNavClick() {
     // handle nav-slide animation
@@ -69,13 +69,17 @@ function ChapterNav({ currentChapter, data }) {
       menu.classList.remove('active');
     }
     
-    setChapterNavAnimation(!chapterNavAnimation);
+    setChapterNavState(!chapterNavState);
   }
 
   const chapters = data.map((arr) => {
     return (
     <li key={arr[0]['chapter']}>
-      <a href='#'>Chapter {arr[0]['chapter']}</a>
+      <a 
+      onClick={(e) => {
+        onChapterChange(e.target.innerHTML);
+      }}
+      href='#'>Chapter {arr[0]['chapter']}</a>
     </li>);
   });
 
@@ -86,9 +90,9 @@ function ChapterNav({ currentChapter, data }) {
           <input
             type='image' 
             src={cross}
-            className={chapterNavAnimation ? 'chapter-nav-animation' : ''}
+            className={chapterNavState ? 'chapter-nav-animation' : ''}
             onClick={() => handleChapterNavClick()}></input>
-          <span>{chapterNavAnimation ? "Pick a chapter!" : "Chapter " + (currentChapter + 1)}</span>
+          <span>{chapterNavState ? "Pick a chapter!" : "Chapter " + (currentChapter + 1)}</span>
         </div>
         <ul id='drop-down-menu'>{chapters}</ul>
       </div>
@@ -105,6 +109,13 @@ function Flashcard({ data }) {
     setDisplayQuestion(!displayQuestion);
   }
 
+  function handleChapterSelection(chapterString) {
+    // grab the chapter number from the string
+    let n = chapterString.lastIndexOf(' ');
+    let result = parseInt(chapterString.substring(n + 1));
+    setCurrentChapter(result - 1);
+  }
+
   function handleCardNav(arrowId) {
     if (arrowId == "Left" && cardNavCounter > 0) {
       setCardNavCounter(cardNavCounter - 1);
@@ -118,6 +129,7 @@ function Flashcard({ data }) {
   return (
     <div className='flashcard'>
       <ChapterNav
+      onChapterChange={handleChapterSelection}
       currentChapter={currentChapter}
       data={data} />
       <CardNav
