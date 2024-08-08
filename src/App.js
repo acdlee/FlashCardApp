@@ -78,6 +78,7 @@ function ChapterNav({ onChapterChange, currentChapter, data }) {
       <a 
       onClick={(e) => {
         onChapterChange(e.target.innerHTML);
+        handleChapterNavClick();
       }}
       href='#'>Chapter {arr[0]['chapter']}</a>
     </li>);
@@ -136,7 +137,7 @@ function Flashcard({ data }) {
         onArrowClick={handleCardNav} 
         cardNumber={cardNavCounter}/>
       <QuestionAnswerField 
-        target_card={data[0][cardNavCounter]} 
+        target_card={data[currentChapter][cardNavCounter]} 
         displayQuestion={displayQuestion} 
         handleCardFlip={handleCardFlip} />
     </div>
