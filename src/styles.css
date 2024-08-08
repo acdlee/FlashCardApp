@@ -34,6 +34,7 @@ h1 {
   color: #f2e8f3;
 
   cursor: pointer;
+  user-select: none;
 }
 
 h2 {

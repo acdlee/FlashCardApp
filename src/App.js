@@ -151,7 +151,7 @@ const DATA = [
     {id: 3, chapter: 1, question: "What is machine learning?", answer: "A computer being trained to improve at a task, by some performance measure."},
   ],
   [    
-    {id: 4, chapter: 2, question: "What is 2+2", answer: "It's 4 silly!."},
+    {id: 4, chapter: 2, question: "What is 2+2?", answer: "It's 4 silly!"},
     {id: 5, chapter: 2, question: "What is the integral of x squared?", answer: "x to the third, all divided by 3... + C!"},
     {id: 6, chapter: 2, question: "Cats or dogs?", answer: "Cats."},
   ]
