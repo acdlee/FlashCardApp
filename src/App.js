@@ -115,6 +115,11 @@ function Flashcard({ data }) {
     let n = chapterString.lastIndexOf(' ');
     let result = parseInt(chapterString.substring(n + 1));
     setCurrentChapter(result - 1);
+
+    // on card change, set the card display to question
+    setDisplayQuestion(true);
+    // Reset to first card
+    setCardNavCounter(0);
   }
 
   function handleCardNav(arrowId) {
