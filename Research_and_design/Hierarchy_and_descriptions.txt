@@ -1,3 +1,4 @@
+_______________Cards______________
 Flashcard contains the entire app
 ChapterNav is used to navigate different sets of cards
 CardNav is used to navigate within sets
@@ -11,3 +12,27 @@ Flashcard
 	QuestionAnswerField
 		QuestionAnswerText
 		FlipCardButton
+
+
+_______________Home______________
+PageTitle is the intro header to the page
+ClippyArea is where Clippy, the tip'er, will live
+IntroArea acts as a written guide for the app
+	WelcomeText is a warm hello 
+	CardsText contains information on the "Cards" tab
+	EditText contains information on the "Edit/Add Cards" tab
+SelectArea is the area where you select a deck/chapter pair
+	SelectDeck holds the deck selection form
+	SelectChapter holds the chapter selection form
+	StudyButton processes the selections made above and opens the deck/cards
+
+ClippyArea
+PageTitle
+IntroArea
+	WelcomeText
+	CardsText
+	EditText
+SelectArea
+	SelectDeck
+	SelectChapter
+	StudyButton
