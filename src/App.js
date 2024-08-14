@@ -149,6 +149,18 @@ function Flashcard({ data }) {
   );
 }
 
+function Nav({ onNavClick }) {
+  return (
+    <nav>
+      <ul>
+        <li id="home" onClick={(e) => onNavClick(e.target.id)}>Home</li>
+        <li id="cards" onClick={(e) => onNavClick(e.target.id)}>Cards</li>
+        <li id="edit" onClick={(e) => onNavClick(e.target.id)}>Add/Edit Cards</li>
+      </ul>
+    </nav>
+  );
+}
+
 const DATA = [
   [
     {id: 1, chapter: 1, question: "What is a training instance?", answer: "One training iteration through all the data."},
@@ -162,9 +174,53 @@ const DATA = [
   ]
 ];
 
-export default function App() {
-  return ( 
+function TempHome() {
+  return (
     <>
-      <Flashcard data={DATA} />
-    </>);
+      <h1>Hello!</h1>
+    </>
+  );
+}
+
+function TempEdit() {
+  return (
+    <>
+      <h1>Hello there!</h1>
+    </>
+  );  
+}
+
+export default function App() {
+  const [pageDisplay, setPageDisplay] = useState(0);
+
+  function handleNavClick(navId) {
+    if (navId == "home") {
+      setPageDisplay(0);
+    } else if (navId == "cards") {
+      setPageDisplay(1);
+    } else {
+      setPageDisplay(2);
+    }
+  }
+
+  function setDisplay() {
+    let display = <TempHome />; // default to home
+    if (!pageDisplay) {
+      display = <TempHome />;
+    } else if (pageDisplay == 1) {
+      display = <Flashcard data={DATA} />;
+    } else {
+      display = <TempEdit />
+    }
+
+    return display;
+  }
+
+  return (
+    <div>
+      <Nav onNavClick={handleNavClick}/>
+      <div id="card">
+        {setDisplay()}
+      </div>
+    </div>);
 }

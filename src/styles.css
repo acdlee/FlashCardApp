@@ -72,12 +72,13 @@ ul {
 
 /* Root elements */
 
-div#root {
+  /* Styles for the card - the background of every display */
+div#card {
   width: 80%;
   height: 450px;
   max-width: 1000px;
   min-width: 750px;
-  margin: 4em auto;
+  margin: 0 auto;
   padding: 2em;
 
   background-image: url(/src/images/foreground.png);
@@ -89,7 +90,31 @@ div#root {
   font-size: 1.2em;
 }
 
-/* Styles for the flashcard */
+  /* Styles for nav */
+nav {
+  width: 60%;
+  margin: 4em auto .5em;
+  padding: .15em;
+  background-color: #cba8fc;
+  border: 4px solid #532593;
+  border-radius: 10px;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+  color: #532593;
+  font-size: 1.25em;
+  font-weight: 800;
+}
+
+nav ul li {
+  cursor: pointer;
+}
+
+  /* Styles for the flashcard */
 .flashcard {
   display: flex;
   flex-wrap: wrap;
