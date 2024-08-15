@@ -1,0 +1,22 @@
+#home-header {
+    display: flex;
+    justify-content: space-around;
+}
+
+#intro-area {
+    width: 30%;
+    padding: .5em;
+}
+
+#select-area {
+    padding: 1em;
+}
+
+#select-area select {
+    margin-bottom: 4em;
+}
+
+.page-content {
+    display: flex;
+    justify-content: space-evenly;
+}

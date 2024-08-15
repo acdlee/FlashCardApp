@@ -12,7 +12,7 @@ function ClippyArea() {
 
 function IntroArea() {
     return (
-        <>
+        <div id="intro-area">
             <p>Welcome to the Flashcard App!</p>
             <p>
                 To change the cards that will appear in the "Cards" tab, 
@@ -21,34 +21,44 @@ function IntroArea() {
             <p>
                 To add or edit a deck or card, please visit the "Add/Edit Cards" tab.
             </p>
-        </>
+        </div>
     );
 }
 
 function SelectArea() {
     return (
-        <>
-            <label htmlFor='deck-select'>Select a Deck</label>
+        <div id="select-area">
+            <label htmlFor='deck-select'>Select a Deck</label><br />
             <select name="deck" id="deck-select">
                 <option value={0}>Deck 1</option>
-            </select>
-            <label htmlFor='chapter-select'>Select a Chapter</label>
+            </select><br />
+            <label htmlFor='chapter-select'>Select a Chapter</label><br />
             <select name="chapter" id="chapter-select">
                 <option value={0}>Chapter 1</option>
                 <option value={1}>Chapter 2</option>
-            </select>
+            </select><br />
             <input type="submit" value={"Start Studying!"} />
-        </>
+        </div>
+    );
+}
+
+function HomeHeader() {
+    return (
+        <div id="home-header">
+            <ClippyArea />
+            <PageTitle />
+        </div>
     );
 }
 
 export default function Home() {
     return (
         <>
-            <ClippyArea />
-            <PageTitle />
-            <IntroArea />
-            <SelectArea />
+            <HomeHeader />
+            <div className="page-content">
+                <IntroArea />
+                <SelectArea />
+            </div>
         </>
     );
 }
