@@ -1,6 +1,7 @@
 import { useState } from 'react'; 
 import arrow from './images/arrow.png';
 import cross from './images/chapter_nav_cross.png'
+import Home from './components/HomePage';
 
 function QuestionAnswerText({ question, answer, displayQuestion }) {  
   return (
@@ -174,14 +175,6 @@ const DATA = [
   ]
 ];
 
-function TempHome() {
-  return (
-    <>
-      <h1>Hello!</h1>
-    </>
-  );
-}
-
 function TempEdit() {
   return (
     <>
@@ -204,9 +197,9 @@ export default function App() {
   }
 
   function setDisplay() {
-    let display = <TempHome />; // default to home
+    let display = <Home />; // default to home
     if (!pageDisplay) {
-      display = <TempHome />;
+      display = <Home />;
     } else if (pageDisplay == 1) {
       display = <Flashcard data={DATA} />;
     } else {
