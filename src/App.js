@@ -17,6 +17,7 @@ function FlipCardButton({ onFlipCardChange }) {
       <input 
         type='button'
         value='Flip Card'
+        className='button-style'
         onClick={onFlipCardChange}
       ></input>
     </>

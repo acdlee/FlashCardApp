@@ -151,7 +151,7 @@ nav ul li {
   flex-basis: 100%;
 }
 
-.qa-field input {
+input.button-style {
   margin-top: 5em;
   padding: 1em;
 
@@ -231,11 +231,11 @@ nav ul li:hover {
   background-size: 100% 4px;
 }
 
-.qa-field input:hover {
+input.button-style:hover {
   box-shadow: 0 0 12px #ffd100;
 }
 
-.qa-field input:active {
+input.button-style:active {
   box-shadow: 0 0 12px #ffd100;
   background-color: #ffd100;
 }

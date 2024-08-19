@@ -10,6 +10,7 @@
 #intro-area {
     width: 35%;
     padding: .5em;
+    padding-top: 0em;
     margin-left: 1.5em;
     /* background: url(/src/images/home-intro-area-background.png) no-repeat; */
     border-radius: 20px;
@@ -26,7 +27,7 @@
 }
 
 #select-area {
-    padding: .5em;
+    padding-top: 0;
 }
 
 #select-area select {
@@ -41,6 +42,7 @@
 #select-area .select-box {
     margin-bottom: 1em;
     padding: .75em;
+    padding-top: 0;
 }
 
 #select-area label {
@@ -58,8 +60,8 @@
 }
 
 #select-area input {
-    margin: 2em auto;
+    margin: auto auto;
+    margin-top: 3em;
     display: block;
-    padding: 1em;
-    margin-left: 1em;
+    display: block;
 }

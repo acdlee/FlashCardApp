@@ -36,7 +36,7 @@ function SelectArea() {
                     <option value={1}>Chapter 2</option>
                 </select><br />
             </div>
-            <input type="submit" value={"Start Studying!"} />
+            <input className='button-style' type='button' value={"Start Studying!"} />
         </div>
     );
 }
