@@ -214,6 +214,7 @@ input.button-style {
 .chapter-nav ul li {
   margin: .2em;
   width: 100%;
+  border-bottom: 2px dashed transparent;
 }
 
 .chapter-nav ul li a {
@@ -245,7 +246,7 @@ input.button-style:active {
 }
 
 .card-nav input:active, .chapter-nav ul li:active {
-  border-bottom: 4px solid #ffd100;
+  border-bottom: 2px solid #ffd100;
 }
 
 h1:hover {
