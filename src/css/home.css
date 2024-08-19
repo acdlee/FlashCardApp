@@ -1,15 +1,32 @@
 #home-header {
     display: flex;
-    justify-content: space-around;
+}
+#home-header img {
+    width: 350px;
+    margin: 1em;
+    margin-left: 1.5em;
 }
 
 #intro-area {
-    width: 30%;
+    width: 35%;
     padding: .5em;
+    margin-left: 1.5em;
+    /* background: url(/src/images/home-intro-area-background.png) no-repeat; */
+    border-radius: 20px;
+    max-width: 300px;
+
+}
+
+#intro-area p:first-of-type {
+    margin-top: 0;
+}
+
+#intro-area p:nth-child(even) {
+    padding-left: 2em;
 }
 
 #select-area {
-    padding: 1em;
+    padding: .5em;
 }
 
 #select-area select {
@@ -18,5 +35,31 @@
 
 .page-content {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+}
+
+#select-area .select-box {
+    margin-bottom: 1em;
+    padding: .75em;
+}
+
+#select-area label {
+    margin-right: 1em;
+    padding-right: 1em;
+    font-size: 1em;
+}
+
+#select-area select {
+    float: right;
+    margin-bottom: 0;
+    padding: .25em;
+    width: 8em;
+    margin-top: .25em;
+}
+
+#select-area input {
+    margin: 2em auto;
+    display: block;
+    padding: 1em;
+    margin-left: 1em;
 }

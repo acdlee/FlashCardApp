@@ -1,12 +1,7 @@
+import clippy from '../images/clippy.jpg'
 function PageTitle() {
     return (
-        <h2>Welcome!</h2>
-    );
-}
-
-function ClippyArea() {
-    return (
-        <img alt="clippy"/>
+        <h2>Home</h2>
     );
 }
 
@@ -28,25 +23,20 @@ function IntroArea() {
 function SelectArea() {
     return (
         <div id="select-area">
-            <label htmlFor='deck-select'>Select a Deck</label><br />
-            <select name="deck" id="deck-select">
-                <option value={0}>Deck 1</option>
-            </select><br />
-            <label htmlFor='chapter-select'>Select a Chapter</label><br />
-            <select name="chapter" id="chapter-select">
-                <option value={0}>Chapter 1</option>
-                <option value={1}>Chapter 2</option>
-            </select><br />
+            <div className='select-box'>
+                <label htmlFor='deck-select'>Select a Deck</label>
+                <select name="deck" id="deck-select">
+                    <option value={0}>Deck 1</option>
+                </select><br />
+            </div>
+            <div className='select-box'>
+                <label htmlFor='chapter-select'>Select a Chapter</label>
+                <select name="chapter" id="chapter-select">
+                    <option value={0}>Chapter 1</option>
+                    <option value={1}>Chapter 2</option>
+                </select><br />
+            </div>
             <input type="submit" value={"Start Studying!"} />
-        </div>
-    );
-}
-
-function HomeHeader() {
-    return (
-        <div id="home-header">
-            <ClippyArea />
-            <PageTitle />
         </div>
     );
 }
@@ -54,7 +44,7 @@ function HomeHeader() {
 export default function Home() {
     return (
         <>
-            <HomeHeader />
+            <PageTitle />
             <div className="page-content">
                 <IntroArea />
                 <SelectArea />

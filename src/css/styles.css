@@ -42,7 +42,9 @@ h1 {
 
 h2 {
   margin-top: 0;
-  font-size: 20px;
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: .5em;
 }
 
 h3 {
@@ -96,11 +98,13 @@ div#card {
   /* Styles for nav */
 nav {
   width: 60%;
+  max-width: 600px;
   margin: 4em auto .5em;
   padding: .15em;
   background-color: #cba8fc;
   border: 4px solid #532593;
   border-radius: 10px;
+  text-transform: uppercase;
 }
 
 nav ul {
@@ -115,6 +119,20 @@ nav ul {
 
 nav ul li {
   cursor: pointer;
+  padding: .25em;
+
+  display: inline-block;
+  background-image: linear-gradient(#ffd100 0 0);
+  background-position: 0 100%; /*OR bottom left*/
+  background-size: 0% 4px;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.3s,
+    background-position 0s 0.3s; /*change after the size immediately*/
+
+  /* border-bottom: 4px solid transparent; */
+  /* transition-property: border-bottom;
+  transition-duration: 0.5s; */
 }
 
   /* Styles for the flashcard */
@@ -208,6 +226,11 @@ nav ul li {
 }
 
     /* Hover and active states */
+nav ul li:hover {
+  background-position: 100% 100%;
+  background-size: 100% 4px;
+}
+
 .qa-field input:hover {
   box-shadow: 0 0 12px #ffd100;
 }
@@ -232,4 +255,5 @@ h1:hover {
     /* Animations */
 .chapter-nav input.chapter-nav-animation {
   transform: rotate(405deg);
+  width: 5em;
 }
