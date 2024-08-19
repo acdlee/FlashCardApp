@@ -156,8 +156,8 @@ function Nav({ onNavClick }) {
     <nav>
       <ul>
         <li id="home" onClick={(e) => onNavClick(e.target.id)}>Home</li>
-        <li id="cards" onClick={(e) => onNavClick(e.target.id)}>Cards</li>
         <li id="edit" onClick={(e) => onNavClick(e.target.id)}>Add/Edit Cards</li>
+        <li id="cards" onClick={(e) => onNavClick(e.target.id)}>Cards</li>
       </ul>
     </nav>
   );
@@ -204,7 +204,7 @@ export default function App() {
     } else if (pageDisplay == 1) {
       display = <Flashcard data={DATA} />;
     } else {
-      display = <TempEdit />
+      display = <TempEdit />;
     }
 
     return display;
