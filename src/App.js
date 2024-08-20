@@ -48,7 +48,7 @@ function CardNav({ onArrowClick, cardNumber }) {
   );
 }
 
-function ChapterNav({ onChapterChange, currentChapter, data }) {
+function ChapterNav({ onChapterChange, currentChapter, data, deck }) {
   const [chapterNavState, setChapterNavState] = useState(false);
 
   function handleChapterNavClick() {
@@ -76,13 +76,13 @@ function ChapterNav({ onChapterChange, currentChapter, data }) {
 
   const chapters = data.map((arr) => {
     return (
-    <li key={arr[0]['chapter']}>
+    <li key={arr[deck]['chapter']}>
       <a 
       onClick={(e) => {
         onChapterChange(e.target.innerHTML);
         handleChapterNavClick();
       }}
-      href='#'>Chapter {arr[0]['chapter']}</a>
+      href='#'>Chapter {arr[deck]['chapter']}</a>
     </li>);
   });
 
@@ -95,7 +95,7 @@ function ChapterNav({ onChapterChange, currentChapter, data }) {
             src={cross}
             className={chapterNavState ? 'chapter-nav-animation' : ''}
             onClick={() => handleChapterNavClick()}></input>
-          <span>{chapterNavState ? "Pick a chapter!" : "Chapter " + (currentChapter + 1)}</span>
+          <span>{chapterNavState ? "Pick a chapter!" : "Chapter " + (parseInt(currentChapter) + 1)}</span>
         </div>
         <ul id='drop-down-menu'>{chapters}</ul>
       </div>
@@ -103,10 +103,10 @@ function ChapterNav({ onChapterChange, currentChapter, data }) {
   );  
 }
 
-function Flashcard({ data }) {
+function Flashcard({ data, chapter=0, deck=0 }) {
   const [cardNavCounter, setCardNavCounter] = useState(0);
   const [displayQuestion, setDisplayQuestion] = useState(true);
-  const [currentChapter, setCurrentChapter] = useState(0);
+  const [currentChapter, setCurrentChapter] = useState(chapter);
 
   function handleCardFlip() {
     setDisplayQuestion(!displayQuestion);
@@ -139,7 +139,7 @@ function Flashcard({ data }) {
       <ChapterNav
       onChapterChange={handleChapterSelection}
       currentChapter={currentChapter}
-      data={data} />
+      data={data} deck={deck}/>
       <CardNav
         onArrowClick={handleCardNav} 
         cardNumber={cardNavCounter}/>
@@ -186,11 +186,14 @@ function TempEdit() {
 
 export default function App() {
   const [pageDisplay, setPageDisplay] = useState(0);
+  const [displayChapter, setDisplayChapter] = useState(0);
+  const [displayDeck, setDisplayDeck] = useState(0);
 
   function handleStudyBtnClick(chapter, deck) {
     // Given a chapter and deck, load the "cards" page with appropriate data
-    console.log(chapter);
-    console.log(deck);
+    setDisplayChapter(chapter);
+    setDisplayDeck(deck);
+    setPageDisplay(1);
   }
 
   function handleNavClick(navId) {
@@ -209,7 +212,7 @@ export default function App() {
       display = <Home 
                   onStudyBtnClick={(chapter, deck) => handleStudyBtnClick(chapter, deck)}/>;
     } else if (pageDisplay == 1) {
-      display = <Flashcard data={DATA} />;
+      display = <Flashcard data={DATA} chapter={displayChapter} deck={displayDeck}/>;
     } else {
       display = <TempEdit />;
     }
