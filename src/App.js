@@ -187,6 +187,12 @@ function TempEdit() {
 export default function App() {
   const [pageDisplay, setPageDisplay] = useState(0);
 
+  function handleStudyBtnClick(chapter, deck) {
+    // Given a chapter and deck, load the "cards" page with appropriate data
+    console.log(chapter);
+    console.log(deck);
+  }
+
   function handleNavClick(navId) {
     if (navId == "home") {
       setPageDisplay(0);
@@ -200,7 +206,8 @@ export default function App() {
   function setDisplay() {
     let display = <Home />; // default to home
     if (!pageDisplay) {
-      display = <Home />;
+      display = <Home 
+                  onStudyBtnClick={(chapter, deck) => handleStudyBtnClick(chapter, deck)}/>;
     } else if (pageDisplay == 1) {
       display = <Flashcard data={DATA} />;
     } else {
