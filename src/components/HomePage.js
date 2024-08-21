@@ -7,37 +7,16 @@ function PageTitle() {
 }
 
 function IntroArea() {
-    function handleHighlight(id) {
-        if (id == 'hover-cards-tab') {
-            // get the cards tab element
-            // toggle the highlight
-            
-        } else if (id == 'hover-add-edit-tab') {
-            // get the add/edit tab element
-            // toggle the highlight
-        }
-    }
-
     return (
         <div id="intro-area">
             <p>Welcome to the Flashcard App!</p>
             <p>
-                To change the cards that will appear in the 
-                <span
-                    onMouseEnter={(e) => handleHighlight(e.target.id)}
-                    id='hover-cards-tab'>
-                    <i> Cards </i>
-                </span> 
+                To change the cards that will appear in the <i> Cards </i>
                 tab, please make your selection to the right.
             </p>
             <p>
-                To add or edit a deck or card, please visit the 
-                <span
-                    onMouseEnter={(e) => handleHighlight(e.target.id)}
-                    id='hover-add-edit-tab'>
-                    <i> Add/Edit Cards </i>
-                </span>
-                tab.
+                To add or edit your cards, visit the 
+                <i> Add/Edit Cards </i> tab.
             </p>
         </div>
     );
