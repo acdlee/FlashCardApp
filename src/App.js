@@ -2,6 +2,7 @@ import { useState } from 'react';
 import arrow from './images/arrow.png';
 import cross from './images/chapter_nav_cross.png'
 import Home from './components/HomePage';
+import AddEdit from './components/AddEditPage'
 
 function QuestionAnswerText({ question, answer, displayQuestion }) {  
   return (
@@ -176,14 +177,6 @@ const DATA = [
   ]
 ];
 
-function TempEdit() {
-  return (
-    <>
-      <h1>Hello there!</h1>
-    </>
-  );  
-}
-
 export default function App() {
   const [pageDisplay, setPageDisplay] = useState(0);
   const [displayChapter, setDisplayChapter] = useState(0);
@@ -214,7 +207,7 @@ export default function App() {
     } else if (pageDisplay == 1) {
       display = <Flashcard data={DATA} chapter={displayChapter} deck={displayDeck}/>;
     } else {
-      display = <TempEdit />;
+      display = <AddEdit />;
     }
 
     return display;

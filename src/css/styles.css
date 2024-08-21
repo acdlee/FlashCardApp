@@ -1,5 +1,6 @@
 /* Other stylesheets */
 @import url("home.css");
+@import url("add_edit.css");
 
 /* General Elements */
 * {

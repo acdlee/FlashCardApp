@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import clippy from '../images/clippy.jpg'
+
 function PageTitle() {
     return (
         <h2>Home</h2>
