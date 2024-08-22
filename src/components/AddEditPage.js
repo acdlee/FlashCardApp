@@ -9,7 +9,7 @@ function PageTitle() {
 function NewDeckArea() {
     return (
         <>
-            <div className='select-section-area'>
+            <div className='title-button-layout'>
                 <h3>Deck</h3>
                 <input type='button' className='button-style-2' value={"Add Deck"}></input>
             </div>
@@ -22,7 +22,7 @@ function NewDeckArea() {
 function NewChapterArea() {
     return (
         <div id='new-area'>
-            <div className='select-section-area more-margin'>
+            <div className='title-button-layout more-margin'>
                 <h3>Chapter</h3>
                 <input type='button' className='button-style-2' value={"Add Chapter"}></input>
             </div>
@@ -51,16 +51,35 @@ function Content() {
 function AddEditCardArea() {
     return (
         <div id='edit-add'>
-            <h3>Cards</h3>
-            <input type='button' value={"Add Edit"}></input><br />
-            <label htmlFor='deck-select'>Select Deck</label>
-            <select name='deck-select'>
-                <option value={0}>Deck 1</option>
-            </select><br />
-            <label htmlFor='chapter-select'>Select Chapter</label>
-            <select name='chapter-select'>
-                <option value={0}>Chapter 1</option>
-            </select><br />
+            <div className='title-button-layout'>
+                <h3>Cards</h3>
+                {/* I think i should change this button style when i start adding states.
+                    Basically, I should render the left-down button classes on default load/
+                    on 2nd click, and 1st click i should render right-down button.
+
+                    Based on this state, I'll allow the select select-card, preload question/answer
+                */}
+                <input type='button' className='button-style-2' value={"Add Edit"}></input><br />
+            </div>
+
+            <div className='select-layout'>
+                <label htmlFor='deck-select'>Select Deck</label>
+                <select name='deck-select' className='select-style'>
+                    <option value={0}>Deck 1</option>
+                </select><br />
+            </div>
+
+            <div className='.select-layout'>
+                <label htmlFor='chapter-select'>Select Chapter</label>
+                <select name='chapter-select' className='select-style'>
+                    <option value={0}>Chapter 1</option>
+                </select><br />
+            </div>
+            
+            <div className='.select-layout'>
+            </div>
+
+
             <label htmlFor='card-select'>Select Card</label>
             <select name='card-select'>
                 <option value={0}>Card 1</option>

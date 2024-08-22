@@ -11,8 +11,8 @@
     margin-right: 1em;
 }
 
-new-area {
-    width: 10em;
+new-area, #edit-add {
+    width: 12em;
 }
 
 #new-area select {
@@ -28,10 +28,25 @@ new-area {
     border-radius: 5px;
 }
 
-.select-section-area {
+#edit-add .select-style {
+    margin-left: 4em;
+    padding: .25em;
+    width: 7em;
+    background-color: #cba8fc;
+    color: #532593;
+    font-weight: 800;
+    border-radius: 5px;
+}
+
+.title-button-layout {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#edit-add .select-layout {
+    display: flex;
+    justify-content: space-between;
 }
 
 .more-margin {
