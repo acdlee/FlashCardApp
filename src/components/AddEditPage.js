@@ -61,33 +61,28 @@ function AddEditCardArea() {
                 */}
                 <input type='button' className='button-style-2' value={"Add Edit"}></input><br />
             </div>
-
             <div className='select-layout'>
                 <label htmlFor='deck-select'>Select Deck</label>
                 <select name='deck-select' className='select-style'>
                     <option value={0}>Deck 1</option>
                 </select><br />
             </div>
-
-            <div className='.select-layout'>
+            <div className='select-layout'>
                 <label htmlFor='chapter-select'>Select Chapter</label>
                 <select name='chapter-select' className='select-style'>
                     <option value={0}>Chapter 1</option>
                 </select><br />
             </div>
-            
-            <div className='.select-layout'>
+            <div className='select-layout'>
+                <label htmlFor='card-select'>Select Card</label>
+                <select name='card-select' className='select-style'>
+                    <option value={0}>Card 1</option>
+                </select><br />
             </div>
-
-
-            <label htmlFor='card-select'>Select Card</label>
-            <select name='card-select'>
-                <option value={0}>Card 1</option>
-            </select><br />
             <label>Question:</label><br />
             <input type='text'></input><br />
             <label>Answer:</label><br />
-            <input type='text'></input><br />
+            <textarea name='answer' rows='5' cols='40'></textarea>
         </div>
     );
 }

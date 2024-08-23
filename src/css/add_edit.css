@@ -11,8 +11,27 @@
     margin-right: 1em;
 }
 
-new-area, #edit-add {
-    width: 12em;
+#edit-add .select-layout {
+    display: flex;
+    justify-content: space-between;
+}
+
+#edit-add .select-layout select {
+    padding: .25em;
+    margin: .25em;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+#edit-add .select-style {
+    background-color: #cba8fc;
+    color: #532593;
+    font-weight: 800;
+    border-radius: 5px;
+}
+
+#edit-add {
+    width: 14em;
 }
 
 #new-area select {
@@ -28,25 +47,10 @@ new-area, #edit-add {
     border-radius: 5px;
 }
 
-#edit-add .select-style {
-    margin-left: 4em;
-    padding: .25em;
-    width: 7em;
-    background-color: #cba8fc;
-    color: #532593;
-    font-weight: 800;
-    border-radius: 5px;
-}
-
 .title-button-layout {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-#edit-add .select-layout {
-    display: flex;
-    justify-content: space-between;
 }
 
 .more-margin {
@@ -60,6 +64,7 @@ new-area, #edit-add {
 
     border: none;
     border-radius: 5px;
+    width: inherit;
 }
 
 #container h3, #edit-add h3 {
@@ -67,11 +72,6 @@ new-area, #edit-add {
     margin: .2em auto.25em 0;
     border-bottom: 4px solid #44bc94;
     font-size: 1.05em;
-}
-
-#container select {
-    float: none;
-
 }
 
 input.button-style-2 {
@@ -92,6 +92,18 @@ input.button-style-2 {
 
     cursor: pointer;
     transition: ease-in-out all .2s, transform ;
+}
+
+#edit-add textarea {
+    height: 100px;
+    width: inherit;
+
+    background-color: #cba8fc;
+    color: #532593;
+    font-weight: 900;
+
+    border: none;
+    border-radius: 5px;
 }
 
 input.button-style-2:hover {
