@@ -36,7 +36,12 @@ function NewChapterArea() {
     );
 }
 
-function Content() {
+function Content({ data }) {
+    function addDeck(new_deck_name) {
+        // check if this deck name already exists
+        
+    }
+
     return (
       <div id='container'>
         <div id='new-chapt-deck'>
@@ -87,11 +92,11 @@ function AddEditCardArea() {
     );
 }
 
-export default function AddEdit() {
+export default function AddEdit({ data }) {
     return (
       <>
         <PageTitle />
-        <Content />
+        <Content data={data}/>
       </>
     );  
   }

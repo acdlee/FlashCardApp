@@ -207,7 +207,7 @@ export default function App() {
     } else if (pageDisplay == 1) {
       display = <Flashcard data={DATA} chapter={displayChapter} deck={displayDeck}/>;
     } else {
-      display = <AddEdit />;
+      display = <AddEdit data={DATA}/>;
     }
 
     return display;
