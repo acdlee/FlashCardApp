@@ -1,26 +1,37 @@
 class Deck {
-    // Class representation of a deck.
-
-    // Chapters data
-    #chapters;
+    #chapters;  // Chapters data
 
     constructor() {
+        /**Class representation of a Deck.
+         * 
+         * Functions:
+         * void addChapter(chapter_name)
+         * getChapter(chapter_name) -> Chapter()
+         * hasChapter(chapter_name) -> boolean
+         * void printDeck()
+         */
         this.#chapters = {};
     }
 
     addChapter(chapter_name) {
-        if (chapter_name != '') {   // empty check
+        /**Adds a Chapter object with name (reference string) chapter_name to the Deck.
+         * 
+         * @param {string} chapter_name - the name (reference string) of the new Chapter object
+         * @returns nothing
+         */
+        if (chapter_name != '' && !this.hasChapter(chapter_name)) {   // empty and existence check
             const new_chapter = new Chapter();
             this.#chapters[chapter_name] = new_chapter;
         }
     }
 
     getChapter(chapter_name) {
-        /**Accessor for a chapter with the associated name chapter_name.
-         * Returns undefined if the chapter with chapter_name doesn't exist.
+        /**Accessor for a Chapter object associated with 'chapter_name', within the Deck.
          * 
+         * @param {string} chapter_name - the name (reference string) of the desired Chapter object
+         * @returns Chapter object if found, undefined otherwise
          */
-        if (chapter_name != '') { // empty check
+        if (chapter_name != '' && this.hasChapter(chapter_name)) {   // empty and existence check
             return this.#chapters[chapter_name];
         }
 
@@ -28,13 +39,19 @@ class Deck {
     }
 
     hasChapter(chapter_name) {
-        /**Checks if the chapter with name=chapter_name exists in the deck.
-         * Returns true if it exists, false otherwise.
+        /**Checks if the Deck has a Chapter with associated name (reference string) chapter_name.
+         * 
+         * @param {string} chapter_name - the name (reference string) of the Chapter in question
+         * @returns boolean
          */
         return this.#chapters.hasOwnProperty(chapter_name);
     }
 
     printDeck() {
+        /**Prints the Deck for debugging.
+         * 
+         */
+        console.log("__________\nDeck:")
         for (const [_, chapter] of Object.entries(this.#chapters)) {
             console.log("\t\tChapter:")
             chapter.printCards();
@@ -43,7 +60,9 @@ class Deck {
 }
 
 class Chapter {
-    // Class representation of a chapter.
+    /**Class representation of a Chapter.
+     * 
+     */
 
     // Cards data
     #cards;
@@ -192,7 +211,6 @@ class DB {
 
     printDecks() {
         for (const [_, deck] of Object.entries(this.#data)) {
-            console.log("_______________________\nDeck:")
             deck.printDeck();
         }
     }

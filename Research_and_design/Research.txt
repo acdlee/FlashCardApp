@@ -3,3 +3,10 @@ https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390
 
 I like the color pallete of this website:
 https://dribbble.com/shots/24610897-Online-Courses-Website
+
+
+Since React will run code on every render, just placing a db = class Db()
+won't work (every render will be a new class).
+->Instead, I'll create a state for init_db that flips true on first load. 
+
+
