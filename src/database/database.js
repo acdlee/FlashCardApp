@@ -60,14 +60,17 @@ class Deck {
 }
 
 class Chapter {
-    /**Class representation of a Chapter.
-     * 
-     */
-
-    // Cards data
-    #cards;
+    #cards; // Cards data
 
     constructor() {
+        /**Class representation of a Chapter.
+         * 
+         * Functions:
+         * void addCard(question, answer)
+         * void editCard(id, new_question, new_answer)
+         * getCard(id) -> object
+         * void printCards()
+         */
         this.#cards = [];
         this.id = 0;
     }
