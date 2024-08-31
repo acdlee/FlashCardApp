@@ -196,7 +196,7 @@ class DB {
          * @param {string} chapter_name - New chapter name
          */
         if (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
-            && !this.hasChapter(chapter_name)) { // empty and existence checks
+            && this.hasChapter(deck_name, chapter_name) == false) { // empty and existence checks
                 // if the names aren't empty, the deck exists, and the chapter does not exist:
                 this.#data[deck_name].addChapter(chapter_name);
         }
@@ -236,6 +236,34 @@ class DB {
         return false;   // if the deck does not exist, return false
     }
 
+    getCard(deck_name, chapter_name, id) {
+        /**Returns a flashcard with id='id' from a chapter with name='chapter_name' and
+         * deck with name='deck_name'.
+         * 
+         * @param {string} deck_name - Target deck name
+         * @param {string} chapter_name - Target chapter name
+         * @param {int} card - Target card id
+         */
+        if (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
+            && this.hasChapter(deck_name, chapter_name)) { // empty and existence checks
+                return this.#data[deck_name].getChapter(chapter_name).getCard(id);
+        }
+    }
+
+    editCard(deck_name, chapter_name, id, question, answer) {
+        /**Edits a flashcard with id='id' from a chapter with name='chapter_name' and
+         * deck with name='deck_name', with new values question='question and answer='answer'.
+         * 
+         * @param {string} deck_name - Target deck name
+         * @param {string} chapter_name - Target chapter name
+         * @param {int} card - Target card id
+         */
+        if (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
+            && this.hasChapter(deck_name, chapter_name)) { // empty and existence checks
+                this.#data[deck_name].getChapter(chapter_name).editCard(id, question, answer);
+        }
+    }
+
     printDecks() {
         /**Prints each deck for debugging.
          * 
@@ -246,28 +274,100 @@ class DB {
     }
 }
 
-if (require.main == module) {
-    const db = new DB();
-    db.printDecks();
-
-    // print cards and check init dummy data
-
-
-
-
-    // console.log(db.getDeck("Chapter 1"));
-
-    // chpt = new Chapter();
-    // chpt.addCard("Does that cat have a hat?", "Yes!");
-    // chpt.addCard("What does the fox say?", "Idk.");
-    // chpt.editCard(1, undefined, "BOWBOWBOWBOW.");
-    // chpt.printCards();
-
+class TestDB {
     /*Test Cases:
     1. get a card's q/a
     2. add a card
     3. edit a card
-    4. add a chapter
-    5. add a deck
+    4. add a chapter (dupe and unique chapter)
+    5. add a deck   (dupe and unique deck)
+    6. adding a new chapter and card to a new deck
+
+    Still need to test:
+    1. adding a card to a deck that doesn't exist
+    2. adding a card to a chapter that doesn't exist
+    3. editing a card that doesn't exist
     */
+    #db;
+
+    constructor() {
+        /**Test class for the DB class.
+         * 
+         */
+        this.#db = new DB();    // inits dummy data by default
+    }
+
+    testDummyData() {
+        this.#db.printDecks();
+    }
+
+    testAddCard() {
+        const question = "What does the cat have?"
+        const answer = "A hat.";
+        const new_card = {"question": question, "answer": answer};
+        const deck_name = "Deck 0";
+        const chapter_name = "Chapter 1";
+        this.#db.addCard(deck_name, chapter_name, new_card);
+        this.#db.printDecks();
+    }
+
+    testGetCard() {
+        const id = 0;
+        const deck_name = "Deck 0";
+        const chapter_name = "Chapter 1";
+        const card = this.#db.getCard(deck_name, chapter_name, id);
+        console.log(card);
+    }
+
+    testEditCard() {
+        const id = 0;
+        const deck_name = "Deck 0";
+        const chapter_name = "Chapter 1";
+        const question = "What the?";
+        const answer = "Oh, I understand.";
+
+        console.log(this.#db.getCard(deck_name, chapter_name, id));
+        this.#db.editCard(deck_name, chapter_name, id, question, answer);
+        console.log(this.#db.getCard(deck_name, chapter_name, id));
+    }
+
+    testAddChapter() {
+        const deck_name = "Deck 0";
+        // const new_chapter = "Chapter 2";
+        const new_chapter = "Chapter 3";
+        this.#db.addChapter(deck_name, new_chapter);
+        this.#db.printDecks();
+    }
+
+    testAddDeck() {
+        // const deck_name = "Deck 0";
+        const deck_name = "Deck 1";
+        this.#db.addDeck(deck_name);
+        this.#db.printDecks();
+    }
+
+    testFullAdd() {
+        const question = "I hope this works?"
+        const answer = "It does!";
+        const new_card = {"question": question, "answer": answer};
+        const deck_name = "Deck 1";
+        const chapter_name = "Chapter 1";
+
+        this.#db.addDeck(deck_name);
+        this.#db.addChapter(deck_name, chapter_name);
+        this.#db.addCard(deck_name, chapter_name, new_card);
+
+        this.#db.printDecks();
+    }
+}
+
+if (require.main == module) {
+    const test = new TestDB();
+    // test.testDummyData();
+    // test.testAddCard();
+    // test.testGetCard();
+    // test.testEditCard();
+    // test.testAddChapter();
+    // test.testAddDeck();
+    // test.testFullAdd();
 }
