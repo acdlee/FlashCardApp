@@ -76,21 +76,23 @@ class Chapter {
     }
 
     addCard(question, answer) {
-        /**Adds the card with input question, answer to the chapter.
+        /**Adds an object representing a card with input args question and answer.
+         * The associated 'id' is handled internally.
          * 
-         * Args: the new card's question and answer.
+         * @param {string} question - the card question
+         * @param {string} answer - the card answer
+         * @returns nothing
          */
         // Remember to increment the id
         this.#cards.push({id: this.id++,"question" : question, "answer" : answer});
     }
 
     editCard(id, new_question=undefined, new_answer=undefined) {
-        /**
-         * Edits the card with id='id' to the new question and/or new answer.
+        /**Edits the card object with id='id' to the new question and/or new answer.
          * 
          * @param {int} id - id for the target card
-         * @param {string} question - new question (optional)
-         * @param {string} answer - new answer (optional)
+         * @param {string} question - new question
+         * @param {string} answer - new answer
          */
         if (id < this.id) { // ensure the card exists
             // Edit question
@@ -105,10 +107,10 @@ class Chapter {
     }
 
     getCard(id) {
-        /**
-         * Returns the associated card with id=id.
+        /**Accessor for the associated card with id='id'.
          * 
          * @param {int} id - associated id for the desired card
+         * @returns object
          */
         if (id < this.id) { // ensure the card exists
             return this.#cards[id];
@@ -116,6 +118,9 @@ class Chapter {
     }
 
     printCards() {
+        /**Prints the cards for debugging.
+         * 
+         */
         for (let i =0; i < this.#cards.length; i++) {
             console.log(this.#cards[i]);
         }
@@ -123,13 +128,20 @@ class Chapter {
 }
 
 class DB {
-    // Class representation of a database.
-
-    // Default data
-    #data;
+    #data;  // Flashcards data
 
     constructor() {
-        // Assign default data to the database
+        /**Class representation of the database for the Flashcard App.
+         * 
+         * Functions:
+         * void initData()
+         * void addCard(deck_name, chapter_name, card)
+         * void addChapter(deck_name, chapter_name)
+         * void addDeck(deck_name)
+         * hasDeck(deck_name) -> boolean
+         * hasChapter(deck_name, chapter_name) -> boolean
+         * void printDecks()
+         */
         this.dummy_data = {
             "Chapter 1": 
             [
@@ -164,9 +176,12 @@ class DB {
     }
 
     addCard(deck_name, chapter_name, card) {
-        /**Adds a flashcard with values=card to a chapter with name=chapter_name to
-         * a deck with name=deck_name.
+        /**Adds a flashcard with values='card' to a chapter with name='chapter_name' to
+         * a deck with name='deck_name'.
          * 
+         * @param {string} deck_name - Target deck name
+         * @param {string} chapter_name - Target chapter name
+         * @param {object} card - New flashcard values
          */
         if (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
             && this.hasChapter(deck_name, chapter_name)) { // empty and existence checks
@@ -175,8 +190,10 @@ class DB {
     }
 
     addChapter(deck_name, chapter_name) {
-        /**Adds a chapter with name=chapter_name to a deck with name=deck_name.
+        /**Adds a chapter with name='chapter_name' to a deck with name='deck_name'.
          * 
+         * @param {string} deck_name - Target deck name
+         * @param {string} chapter_name - New chapter name
          */
         if (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
             && !this.hasChapter(chapter_name)) { // empty and existence checks
@@ -186,8 +203,9 @@ class DB {
     }
 
     addDeck(deck_name) {
-        /**Adds a deck to the data with name=deck_name.
+        /**Adds a deck to the data with name='deck_name'.
          * 
+         * @param {string} deck_name - New deck name
          */
         if (deck_name != '' && !this.hasDeck(deck_name)) {  // empty and existence check
             this.#data[deck_name] = new Deck();
@@ -195,15 +213,21 @@ class DB {
     }
 
     hasDeck(deck_name) {
-        /**Checks if the data has the deck with name=deck_name.
+        /**Checks if the data has the deck with name='deck_name'.
          * 
+         * @param {string} deck_name - Target deck name
+         * @returns boolean
          */
         return this.#data.hasOwnProperty(deck_name);
     }
 
     hasChapter(deck_name, chapter_name) {
-        /**Checks if the data has the chapter with name=chapter_name in deck
-         * with name=deck_name.
+        /**Checks if the data has the chapter with name='chapter_name' in deck
+         * with name='deck_name'.
+         * 
+         * @param {string} deck_name - Target deck name
+         * @param {string} chapter_name - Target chapter name
+         * @returns boolean
          */
         if (this.hasDeck(deck_name)) {
             return this.#data[deck_name].hasChapter(chapter_name);
@@ -213,6 +237,9 @@ class DB {
     }
 
     printDecks() {
+        /**Prints each deck for debugging.
+         * 
+         */
         for (const [_, deck] of Object.entries(this.#data)) {
             deck.printDeck();
         }
