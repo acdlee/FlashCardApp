@@ -127,7 +127,7 @@ class Chapter {
     }
 }
 
-class DB {
+export class DB {
     #data;  // Flashcards data
 
     constructor() {
@@ -361,13 +361,13 @@ class TestDB {
     }
 }
 
-if (require.main == module) {
-    const test = new TestDB();
-    // test.testDummyData();
-    // test.testAddCard();
-    // test.testGetCard();
-    // test.testEditCard();
-    // test.testAddChapter();
-    // test.testAddDeck();
-    // test.testFullAdd();
-}
+// if (require.main == module) {
+//     const test = new TestDB();
+//     // test.testDummyData();
+//     // test.testAddCard();
+//     // test.testGetCard();
+//     // test.testEditCard();
+//     // test.testAddChapter();
+//     // test.testAddDeck();
+//     // test.testFullAdd();
+// }

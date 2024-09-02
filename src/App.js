@@ -3,6 +3,7 @@ import arrow from './images/arrow.png';
 import cross from './images/chapter_nav_cross.png'
 import Home from './components/HomePage';
 import AddEdit from './components/AddEditPage'
+import { DB } from './database/database'
 
 function QuestionAnswerText({ question, answer, displayQuestion }) {  
   return (
@@ -181,6 +182,7 @@ export default function App() {
   const [pageDisplay, setPageDisplay] = useState(0);
   const [displayChapter, setDisplayChapter] = useState(0);
   const [displayDeck, setDisplayDeck] = useState(0);
+  const [db] = useState(() => new DB());  // Database - renders once
 
   function handleStudyBtnClick(chapter, deck) {
     // Given a chapter and deck, load the "cards" page with appropriate data
