@@ -8,10 +8,24 @@ class Deck {
          * void addChapter(chapter_name)
          * getChapter(chapter_name) -> Chapter()
          * hasChapter(chapter_name) -> boolean
-         * getChapters() -> Array
+         * getChapters() -> Array of Chapter objs
          * void printDeck()
+         * getChapterNames() -> Array of strings
          */
         this.#chapters = {};
+    }
+
+    getChapterNames() {
+        /**Returns the names of all chapters within the deck.
+         * 
+         * @returns Array of chapter name strings
+         */
+        let names = [];
+        for (const [name, _] of Object.entries(this.#chapters)) {
+            names.push(name);
+        }
+
+        return names;
     }
 
     addChapter(chapter_name) {
@@ -158,6 +172,8 @@ export class DB {
          * hasChapter(deck_name, chapter_name) -> boolean
          * getChapter(deck_name, chapter_name) -> Chapter obj
          * void printDecks()
+         * getDeckNames() -> Array of strings
+         * getChapterNames(deck_name) -> Array of strings
          */
         this.dummy_data = {
             "Chapter 1": 
@@ -202,6 +218,32 @@ export class DB {
         if (this.hasChapter(deck_name, chapter_name)) { // existence check
             return this.#data[deck_name].getChapter(chapter_name);
         }
+    }
+
+    getDeckNames() {
+        /**Returns the deck names for all decks in the database.
+         * 
+         * @returns Array of strings
+         */
+        const names = [];
+        for (const [deck_name, _] of Object.entries(this.#data)) {
+            names.push(deck_name);
+        }
+
+        return names;
+    }
+
+    getChapterNames(deck_name) {
+        /**Returns the chapter names for a given deck.
+         * 
+         * @param {string} deck_name - Target deck
+         * @returns Array of strings of chapter names
+         */
+        if (this.hasDeck(deck_name)) {  // existence check
+            return this.#data[deck_name].getChapterNames();
+        }
+
+        return undefined;
     }
 
     getChapters(deck_name) {

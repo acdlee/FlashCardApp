@@ -206,7 +206,8 @@ export default function App() {
   function setDisplay() {
     let display = <Home />; // default to home
     if (!pageDisplay) {
-      display = <Home 
+      display = <Home
+                  db={db} 
                   onStudyBtnClick={(chapter, deck) => handleStudyBtnClick(chapter, deck)}/>;
     } else if (pageDisplay == 1) {
       display = <Flashcard db={db} chapter={displayChapter} deck={displayDeck}/>;

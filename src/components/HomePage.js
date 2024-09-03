@@ -22,7 +22,7 @@ function IntroArea() {
     );
 }
 
-function SelectArea({ onStudyBtnClick }) {
+function SelectArea({ db, onStudyBtnClick }) {
     const [chapterSelection, setChapterSelection] = useState(0);
     const [deckSelection, setDeckSelection] = useState(0);
 
@@ -34,19 +34,30 @@ function SelectArea({ onStudyBtnClick }) {
         }
     }
 
+    const deck_options = db.getDeckNames().map((deck_name, index) => {
+        return (
+            <option key={index} value={index}>{deck_name}</option>
+        );
+    });
+
+    const chapter_options = db.getChapterNames("Deck 0").map((chapter_name, index) => {
+        return (
+            <option key={index} value={index}>{chapter_name}</option>
+        );
+    });
+
     return (
         <div id="select-area">
             <div className='select-box'>
                 <label htmlFor='deck-select'>Select a Deck</label>
                 <select name="deck" id="deck-select" onChange={handleSelect}>
-                    <option value={0}>Deck 1</option>
+                    {deck_options}
                 </select><br />
             </div>
             <div className='select-box'>
                 <label htmlFor='chapter-select'>Select a Chapter</label>
                 <select name="chapter" id="chapter-select" onChange={handleSelect}>
-                    <option value={0}>Chapter 1</option>
-                    <option value={1}>Chapter 2</option>
+                    {chapter_options}
                 </select><br />
             </div>
             <input
@@ -56,13 +67,13 @@ function SelectArea({ onStudyBtnClick }) {
     );
 }
 
-export default function Home({ onStudyBtnClick }) {
+export default function Home({ db, onStudyBtnClick }) {
     return (
         <>
             <PageTitle />
             <div className="page-content">
                 <IntroArea />
-                <SelectArea onStudyBtnClick={onStudyBtnClick}/>
+                <SelectArea db={db} onStudyBtnClick={onStudyBtnClick}/>
             </div>
         </>
     );
