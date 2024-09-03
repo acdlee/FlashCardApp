@@ -8,6 +8,7 @@ class Deck {
          * void addChapter(chapter_name)
          * getChapter(chapter_name) -> Chapter()
          * hasChapter(chapter_name) -> boolean
+         * getChapters() -> Array
          * void printDeck()
          */
         this.#chapters = {};
@@ -36,6 +37,19 @@ class Deck {
         }
 
         return undefined;
+    }
+
+    getChapters() {
+        /**Accessor for all chapters within a deck.
+         * 
+         * @returns An array of chapter objects.
+         */
+        let chapters_array = [];
+        for (const chapter in this.#chapters) {
+            chapters_array.push(chapter);
+        }
+
+        return chapters_array;
     }
 
     hasChapter(chapter_name) {
@@ -173,6 +187,17 @@ export class DB {
             }
         }
         
+    }
+
+    getChapters(deck_name) {
+        /**Accessor for chapters in a deck.
+         * 
+         * @param {string} deck_name - Target deck name
+         * @returns Array of chapter objects
+         */
+        if (this.hasDeck(deck_name)) {    // existence check
+            return this.#data[deck_name].getChapters();
+        }
     }
 
     addCard(deck_name, chapter_name, card) {

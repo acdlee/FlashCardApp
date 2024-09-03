@@ -5,8 +5,12 @@ I like the color pallete of this website:
 https://dribbble.com/shots/24610897-Online-Courses-Website
 
 
-Since React will run code on every render, just placing a db = class Db()
-won't work (every render will be a new class).
-->Instead, I'll create a state for init_db that flips true on first load. 
+Okay, so we need to figure out how to implement the DB class into the app.
+Currently, we just use a DATA variable (array of an array of objects that represent flashcards).
 
+Ideally, we'd use the db class everywhere instead.
 
+BUT, I'm sure it's possible to just provide the same DATA variable by extracting
+and formatting the same data from the db class.
+
+I think best practice would be to use the class, however. Let's go with that.

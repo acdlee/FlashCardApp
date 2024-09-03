@@ -50,7 +50,7 @@ function CardNav({ onArrowClick, cardNumber }) {
   );
 }
 
-function ChapterNav({ onChapterChange, currentChapter, data, deck }) {
+function ChapterNav({ db, onChapterChange, currentChapter, data, deck }) {
   const [chapterNavState, setChapterNavState] = useState(false);
 
   function handleChapterNavClick() {
@@ -76,17 +76,33 @@ function ChapterNav({ onChapterChange, currentChapter, data, deck }) {
     setChapterNavState(!chapterNavState);
   }
 
-  const chapters = data.map((arr) => {
+  const chapters = db.getChapters("Deck 0").map((chpt_name) => {
     return (
-    <li key={arr[deck]['chapter']}>
-      <a 
-      onClick={(e) => {
-        onChapterChange(e.target.innerHTML);
-        handleChapterNavClick();
-      }}
-      href='#'>Chapter {arr[deck]['chapter']}</a>
-    </li>);
+      <li key={chpt_name}>
+        <a
+          onClick={(e) => {
+            onChapterChange(e.target.innerHTML);
+            handleChapterNavClick();
+          }}
+        href='#'>{chpt_name}</a>
+      </li>
+    );
   });
+  // console.log(_chapters);
+
+  // const chapters = data.map((arr) => {
+  //   return (
+  //   <li key={arr[deck]['chapter']}>
+  //     <a 
+  //     onClick={(e) => {
+  //       onChapterChange(e.target.innerHTML);
+  //       handleChapterNavClick();
+  //     }}
+  //     href='#'>Chapter {arr[deck]['chapter']}</a>
+  //   </li>);
+  // });
+
+  // console.log(chapters);
 
   return (
     <>
@@ -105,7 +121,7 @@ function ChapterNav({ onChapterChange, currentChapter, data, deck }) {
   );  
 }
 
-function Flashcard({ data, chapter=0, deck=0 }) {
+function Flashcard({ data, db, chapter=0, deck=0 }) {
   const [cardNavCounter, setCardNavCounter] = useState(0);
   const [displayQuestion, setDisplayQuestion] = useState(true);
   const [currentChapter, setCurrentChapter] = useState(chapter);
@@ -139,9 +155,10 @@ function Flashcard({ data, chapter=0, deck=0 }) {
   return (
     <div className='flashcard'>
       <ChapterNav
-      onChapterChange={handleChapterSelection}
-      currentChapter={currentChapter}
-      data={data} deck={deck}/>
+        db={db}
+        onChapterChange={handleChapterSelection}
+        currentChapter={currentChapter}
+        data={data} deck={deck}/>
       <CardNav
         onArrowClick={handleCardNav} 
         cardNumber={cardNavCounter}/>
@@ -207,7 +224,7 @@ export default function App() {
       display = <Home 
                   onStudyBtnClick={(chapter, deck) => handleStudyBtnClick(chapter, deck)}/>;
     } else if (pageDisplay == 1) {
-      display = <Flashcard data={DATA} chapter={displayChapter} deck={displayDeck}/>;
+      display = <Flashcard data={DATA} db={db} chapter={displayChapter} deck={displayDeck}/>;
     } else {
       display = <AddEdit data={DATA}/>;
     }
