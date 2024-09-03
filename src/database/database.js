@@ -87,6 +87,7 @@ class Chapter {
          */
         this.#cards = [];
         this.id = 0;
+        this.size = 0;
     }
 
     addCard(question, answer) {
@@ -97,8 +98,9 @@ class Chapter {
          * @param {string} answer - the card answer
          * @returns nothing
          */
-        // Remember to increment the id
+        // Remember to increment the id and size
         this.#cards.push({id: this.id++,"question" : question, "answer" : answer});
+        this.size++;
     }
 
     editCard(id, new_question=undefined, new_answer=undefined) {
@@ -154,6 +156,7 @@ export class DB {
          * void addDeck(deck_name)
          * hasDeck(deck_name) -> boolean
          * hasChapter(deck_name, chapter_name) -> boolean
+         * getChapter(deck_name, chapter_name) -> Chapter obj
          * void printDecks()
          */
         this.dummy_data = {
@@ -189,11 +192,23 @@ export class DB {
         
     }
 
+    getChapter(deck_name, chapter_name) {
+        /**Accessor for a chapter with name='chapter_name' in a deck with name='deck_name'.
+         * 
+         * @param {string} deck_name - Target deck
+         * @param {string} chapter_name - Target chapter
+         * @return Chapter object
+         */
+        if (this.hasChapter(deck_name, chapter_name)) { // existence check
+            return this.#data[deck_name].getChapter(chapter_name);
+        }
+    }
+
     getChapters(deck_name) {
-        /**Accessor for chapters in a deck.
+        /**Accessor for chapters in a deck with name='deck_name'.
          * 
          * @param {string} deck_name - Target deck name
-         * @returns Array of chapter objects
+         * @return Array of chapter objects
          */
         if (this.hasDeck(deck_name)) {    // existence check
             return this.#data[deck_name].getChapters();
