@@ -14,3 +14,7 @@ BUT, I'm sure it's possible to just provide the same DATA variable by extracting
 and formatting the same data from the db class.
 
 I think best practice would be to use the class, however. Let's go with that.
+
+*
+When you select an input text box, change select css class to hover the yellow
+hover color you have everywhere else.

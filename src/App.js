@@ -186,10 +186,10 @@ export default function App() {
   const [displayDeck, setDisplayDeck] = useState("Deck 0");
   const [db] = useState(() => new DB());  // Database - renders once
 
-  function handleStudyBtnClick(chapter, deck) {
-    // Given a chapter and deck, load the "cards" page with appropriate data
-    setDisplayChapter(chapter);
-    setDisplayDeck(deck);
+  function handleStudyBtnClick(chapter_name, deck_name) {
+    // Given chapter and deck names, load the "cards" page with appropriate data
+    setDisplayChapter(chapter_name);
+    setDisplayDeck(deck_name);
     setPageDisplay(1);
   }
 

@@ -23,8 +23,8 @@ function IntroArea() {
 }
 
 function SelectArea({ db, onStudyBtnClick }) {
-    const [chapterSelection, setChapterSelection] = useState(0);
-    const [deckSelection, setDeckSelection] = useState(0);
+    const [chapterSelection, setChapterSelection] = useState("Chapter 1");
+    const [deckSelection, setDeckSelection] = useState("Deck 0");
 
     function handleSelect(e) {
         if (e.target.name == 'chapter') {
@@ -36,13 +36,13 @@ function SelectArea({ db, onStudyBtnClick }) {
 
     const deck_options = db.getDeckNames().map((deck_name, index) => {
         return (
-            <option key={index} value={index}>{deck_name}</option>
+            <option key={index} value={deck_name}>{deck_name}</option>
         );
     });
 
-    const chapter_options = db.getChapterNames("Deck 0").map((chapter_name, index) => {
+    const chapter_options = db.getChapterNames(deckSelection).map((chapter_name, index) => {
         return (
-            <option key={index} value={index}>{chapter_name}</option>
+            <option key={index} value={chapter_name}>{chapter_name}</option>
         );
     });
 
