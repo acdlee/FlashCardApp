@@ -1,59 +1,127 @@
 import { useState } from 'react';
 
+function getDeckOptions(db) {
+    const deck_options = db.getDeckNames().map((deck_name, index) => {
+        return (
+            <option key={index} value={deck_name}>{deck_name}</option>
+        );
+    });
+
+    return deck_options;
+}
+
+function getChapterOptions(db, deckSelection) {
+    const chapter_options = db.getChapterNames(deckSelection).map((chapter_name, index) => {
+        return (
+            <option key={index} value={chapter_name}>{chapter_name}</option>
+        );
+    });
+
+    return chapter_options;
+}
+
 function PageTitle() {
     return (
         <h2>Add/Edit</h2>
     );
 }
 
-function NewDeckArea() {
+function NewDeckArea({ onAddDeck }) {
     return (
         <>
             <div className='title-button-layout'>
                 <h3>Deck</h3>
-                <input type='button' className='button-style-2' value={"Add Deck"}></input>
+                <input 
+                    onClick={() => {
+                        // Get the new deck name from input text
+                        const id = document.getElementById('new-deck-name').value;
+                        onAddDeck(id);
+                    }}
+                    type='button'
+                    className='button-style-2'
+                    value={"Add Deck"}></input>
             </div>
             <label htmlFor='new-deck-name'>New Deck Name:</label><br />
-            <input type='text'></input><br />
+            <input id='new-deck-name' type='text'></input><br />
         </>
     );
 }
 
-function NewChapterArea() {
+function NewChapterArea({ db, onAddChapter }) {
     return (
         <div id='new-area'>
             <div className='title-button-layout more-margin'>
                 <h3>Chapter</h3>
-                <input type='button' className='button-style-2' value={"Add Chapter"}></input>
+                <input
+                    onClick={() => {
+                        // Get the new chapter name and selected deck
+                        const id = document.getElementById("new-chapter-name").value;
+                        const target = document.getElementById("deck-select-new-chapt");
+                        const deck_name = target.options[target.selectedIndex].text;
+                        onAddChapter(deck_name, id);
+                    }}
+                    type='button'
+                    className='button-style-2'
+                    value={"Add Chapter"}></input>
             </div>
             <label htmlFor='deck-select'>Select Deck</label>
-            <select name='deck-select'>
-                <option value={0}>Deck 1</option>
+            <select id='deck-select-new-chapt' name='deck-select'>
+                {getDeckOptions(db)}
             </select><br />
             <label htmlFor='new-chapter-name' id='new-chapt-name'>New Chapter Name:</label><br />
-            <input type='text'></input><br />
+            <input id='new-chapter-name' type='text'></input><br />
         </div>
     );
 }
 
-function Content({ data }) {
-    function addDeck(new_deck_name) {
-        // check if this deck name already exists
-        
+function Content({ db }) {
+    const [deckSelection, setDeckSelection] = useState("Deck 0");
+    const [deckOptions, setDeckOptions] = useState(db.getDeckNames());
+    const [chapterOptions, setChapterOptions] = useState(db.getChapterNames(deckSelection));
+
+    function handleDeckSelectEditAdd(selected_deck) {
+        setDeckSelection(selected_deck);
+    }
+
+    function handleNewDeck(new_deck_name) {
+        // Add the new deck
+        db.addDeck(new_deck_name);
+        // Updating the state will allow select lists to see the update without page refresh
+        setDeckOptions(db.getDeckNames());
+    }
+
+    function handleNewChapter(deck_name, new_chapter_name) {
+        // Add the new chapter
+        db.addChapter(deck_name, new_chapter_name);
+        // Updating the state will allow select lists to see the update without page refresh
+        setChapterOptions(db.getChapterNames());
+    }
+
+    function handleNewCard(deck_name, chapter_name, new_card) {
+        // new card must be an object with question, answer properties
+        // db.addCard(deck_name, chapter_name, new_card);
+        console.log(new_card);
+    }
+
+    function handleEditCard(deck_name, chapter_name, id, edit_card) {
+        // db.editCard(deck_name, chapter_name, id, edit_card["question"], edit_card["answer"]);
+        console.log(id, edit_card);
     }
 
     return (
       <div id='container'>
         <div id='new-chapt-deck'>
-            <NewDeckArea />
-            <NewChapterArea />
+            <NewDeckArea onAddDeck={handleNewDeck}/>
+            <NewChapterArea db={db} onAddChapter={handleNewChapter}/>
         </div>
-        <AddEditCardArea/>
+        <AddEditCardArea db={db} deckSelection={deckSelection} handleSelect={handleDeckSelectEditAdd}/>
       </div>  
     );
 }
 
-function AddEditCardArea() {
+function AddEditCardArea({ db, deckSelection, handleSelect }) {
+    const [toggleBtn, setToggleBtn] = useState(false);  // false => Add Card function
+
     return (
         <div id='edit-add'>
             <div className='title-button-layout'>
@@ -68,14 +136,22 @@ function AddEditCardArea() {
             </div>
             <div className='select-layout'>
                 <label htmlFor='deck-select'>Select Deck</label>
-                <select name='deck-select' className='select-style'>
-                    <option value={0}>Deck 1</option>
+                <select
+                    onChange={() => {
+                        // On deck select change, update the deckSelection state
+                        const target = document.getElementById("deck-select-edit-add");
+                        handleSelect(target.options[target.selectedIndex].value);
+                    }}
+                    id='deck-select-edit-add'
+                    name='deck-select'
+                    className='select-style'>
+                    {getDeckOptions(db)}
                 </select><br />
             </div>
             <div className='select-layout'>
                 <label htmlFor='chapter-select'>Select Chapter</label>
                 <select name='chapter-select' className='select-style'>
-                    <option value={0}>Chapter 1</option>
+                    {getChapterOptions(db, deckSelection)}
                 </select><br />
             </div>
             <div className='select-layout'>
@@ -92,11 +168,11 @@ function AddEditCardArea() {
     );
 }
 
-export default function AddEdit({ data }) {
+export default function AddEdit({ db }) {
     return (
       <>
         <PageTitle />
-        <Content data={data}/>
+        <Content db={db}/>
       </>
     );  
   }

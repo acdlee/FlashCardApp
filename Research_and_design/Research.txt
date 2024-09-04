@@ -18,3 +18,14 @@ I think best practice would be to use the class, however. Let's go with that.
 *
 When you select an input text box, change select css class to hover the yellow
 hover color you have everywhere else.
+
+Make a deck_options state
+When you add a new deck name, also update the deck options state
+
+I think the best way to do this is to use an empty state array at first
+Then you populate as you go.
+Ex:
+usestate([initial deck names])
+onChangeAddDeck->
+    setDeckNames() -> include new deck
+and then make the deck options jsx somewhere else

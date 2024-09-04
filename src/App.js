@@ -212,7 +212,7 @@ export default function App() {
     } else if (pageDisplay == 1) {
       display = <Flashcard db={db} chapter={displayChapter} deck={displayDeck}/>;
     } else {
-      display = <AddEdit data={DATA}/>;
+      display = <AddEdit db={db}/>;
     }
 
     return display;
