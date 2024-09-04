@@ -114,12 +114,12 @@ function Content({ db }) {
             <NewDeckArea onAddDeck={handleNewDeck}/>
             <NewChapterArea db={db} onAddChapter={handleNewChapter}/>
         </div>
-        <AddEditCardArea db={db} deckSelection={deckSelection} handleSelect={handleDeckSelectEditAdd}/>
+        <AddEditCardArea db={db} deckSelection={deckSelection} handleDeckSelect={handleDeckSelectEditAdd}/>
       </div>  
     );
 }
 
-function AddEditCardArea({ db, deckSelection, handleSelect }) {
+function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
     const [toggleBtn, setToggleBtn] = useState(false);  // false => Add Card function
 
     return (
@@ -140,7 +140,7 @@ function AddEditCardArea({ db, deckSelection, handleSelect }) {
                     onChange={() => {
                         // On deck select change, update the deckSelection state
                         const target = document.getElementById("deck-select-edit-add");
-                        handleSelect(target.options[target.selectedIndex].value);
+                        handleDeckSelect(target.options[target.selectedIndex].value);
                     }}
                     id='deck-select-edit-add'
                     name='deck-select'

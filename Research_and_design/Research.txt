@@ -5,27 +5,15 @@ I like the color pallete of this website:
 https://dribbble.com/shots/24610897-Online-Courses-Website
 
 
-Okay, so we need to figure out how to implement the DB class into the app.
-Currently, we just use a DATA variable (array of an array of objects that represent flashcards).
-
-Ideally, we'd use the db class everywhere instead.
-
-BUT, I'm sure it's possible to just provide the same DATA variable by extracting
-and formatting the same data from the db class.
-
-I think best practice would be to use the class, however. Let's go with that.
 
 *
 When you select an input text box, change select css class to hover the yellow
 hover color you have everywhere else.
 
-Make a deck_options state
-When you add a new deck name, also update the deck options state
+*
+need to set the selected psuedo classes for a lot of elements
 
-I think the best way to do this is to use an empty state array at first
-Then you populate as you go.
-Ex:
-usestate([initial deck names])
-onChangeAddDeck->
-    setDeckNames() -> include new deck
-and then make the deck options jsx somewhere else
+
+Let's do add/edit card next
+
+then handle display/adding a card
