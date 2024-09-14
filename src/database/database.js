@@ -174,6 +174,7 @@ export class DB {
          * void printDecks()
          * getDeckNames() -> Array of strings
          * getChapterNames(deck_name) -> Array of strings
+         * getCards(deck_name, chapter_name) -> Array of Objs
          */
         this.dummy_data = {
             "Chapter 1": 
@@ -301,6 +302,25 @@ export class DB {
          * @returns boolean
          */
         return this.#data.hasOwnProperty(deck_name);
+    }
+
+    getCards(deck_name, chapter_name) {
+        /**Returns the cards in chapter 'chapter_name' in deck 'deck_name'.
+         * 
+         * @param {string} deck_name - Target deck
+         * @param {string} chapter_name - Target chapter
+         * @returns Array of cards
+         */
+        let cards = [];
+        if (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
+            && this.hasChapter(deck_name, chapter_name)) { // empty and existence checks
+                const chapter_obj = this.getChapter(deck_name, chapter_name);
+                for (let i = 0; i < chapter_obj.size; i++) {
+                    cards.push(chapter_obj.getCard(i));
+                }
+        }
+        
+        return cards;
     }
 
     hasChapter(deck_name, chapter_name) {

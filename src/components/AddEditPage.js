@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function getDeckOptions(db) {
     const deck_options = db.getDeckNames().map((deck_name, index) => {
@@ -121,6 +121,74 @@ function Content({ db }) {
 
 function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
     const [toggleBtn, setToggleBtn] = useState(false);  // false => Add Card function
+    const [chapterSelection, setChapterSelection] = useState("Chapter 1");
+    const [cardOptions, setCardOptions] = useState([]);
+    const [cards, setCards] = useState([]);
+    const [display, setDisplay] = useState("");
+    const [display2, setDisplay2] = useState("");
+    const [cardSelect, setCardSelect] = useState("0");
+
+    useEffect(() => {
+        console.log("Dispaly 2 changed,");
+    }, [display2]);
+
+
+
+    async function getData() {
+
+        const chpt_select = document.getElementById('chapter-select');
+        const selected = chpt_select.options[chpt_select.selectedIndex];
+        setChapterSelection(selected.value);
+
+        const data = db.getCards(deckSelection, selected.value);
+        setCards(data);
+        const results = [];
+        let init = true;
+
+        // Store results in the results array
+        data.forEach(element => {
+            if (init) {
+                results.push(
+                    <option key={"Card " + element["id"]} value={element["id"]}>Card {element["id"] + 1}</option>
+                    // <option key={"Card " + element["id"]} value={element}>Card {element["question"]}</option>
+                );
+                init = false;
+            } else {
+                results.push(
+                    <option key={"Card " + element["id"]} value={element["id"]}>Card {element["id"] + 1}</option>
+                    // <option key={"Card " + element["id"]} value={element}>Card {element["question"]}</option>
+                );
+            }
+        });
+        
+        console.log(selected.value);
+        console.log(db.getCard(deckSelection, selected.value, 0)["question"]);
+        setCardOptions(results);
+        changeCard();
+    }
+
+    async function changeCard() {
+        // get the selected card
+        const card_select = document.getElementById('card-select');
+        const card_selected = card_select.options[card_select.selectedIndex];
+        
+        console.log(cardSelect);
+
+        const chpt_select = document.getElementById('chapter-select');
+        const selected = chpt_select.options[chpt_select.selectedIndex];
+        console.log("Deck and chapter selection", deckSelection, selected.value);
+        const text1 = document.getElementById('card-question-text');
+        text1.value = db.getCard(deckSelection, selected.value, cardSelect)["question"];
+        console.log(text1.value);
+        setDisplay2(db.getCard(deckSelection, selected.value, cardSelect)["answer"]);
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+    useEffect(() => {
+        changeCard();
+    }, [cardSelect]);
 
     return (
         <div id='edit-add'>
@@ -141,6 +209,7 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
                         // On deck select change, update the deckSelection state
                         const target = document.getElementById("deck-select-edit-add");
                         handleDeckSelect(target.options[target.selectedIndex].value);
+                        getData();
                     }}
                     id='deck-select-edit-add'
                     name='deck-select'
@@ -150,20 +219,34 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
             </div>
             <div className='select-layout'>
                 <label htmlFor='chapter-select'>Select Chapter</label>
-                <select name='chapter-select' className='select-style'>
+                <select 
+                    onChange={() => {
+                        getChapterOptions(db, deckSelection);
+                        getData();
+                        // console.log("Changing card.");
+                    }}
+                    id='chapter-select'
+                    name='chapter-select' 
+                    className='select-style'>
                     {getChapterOptions(db, deckSelection)}
                 </select><br />
             </div>
             <div className='select-layout'>
                 <label htmlFor='card-select'>Select Card</label>
-                <select name='card-select' className='select-style'>
-                    <option value={0}>Card 1</option>
+                <select 
+                    onChange={(e) => {
+                        console.log(e.target.value);
+                        setCardSelect(e.target.value);
+                        changeCard();    
+                    }}
+                    id='card-select' name='card-select' className='select-style'>
+                    {cardOptions}
                 </select><br />
             </div>
             <label>Question:</label><br />
-            <input type='text'></input><br />
+            <input type='text' id='card-question-text'></input><br />
             <label>Answer:</label><br />
-            <textarea name='answer' rows='5' cols='40'></textarea>
+            <textarea value={display2} id='card-answer-text' name='answer' rows='5' cols='40'></textarea>
         </div>
     );
 }

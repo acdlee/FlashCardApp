@@ -14,6 +14,13 @@ hover color you have everywhere else.
 need to set the selected psuedo classes for a lot of elements
 
 
-Let's do add/edit card next
 
-then handle display/adding a card
+
+We're stuck. Let's do more research, maybe the first plan wasn't good enough.
+
+Look into how to add data and a database to a react app. 
+
+For example, how to add select options from a database.
+How to load different data from a database depending on user input.
+
+https://www.geeksforgeeks.org/how-to-change-a-selects-options-based-on-another-dropdown-using-react/
