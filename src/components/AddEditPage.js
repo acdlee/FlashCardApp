@@ -33,16 +33,19 @@ function NewDeckArea({ onAddDeck }) {
                 <h3>Deck</h3>
                 <input 
                     onClick={() => {
-                        // Get the new deck name from input text
+                        // Get the new deck name from input text and add to DB
                         const id = document.getElementById('new-deck-name').value;
                         onAddDeck(id);
+                        // Reset text input
+                        const inputText = document.getElementById('new-deck-name');
+                        inputText.value = "";
                     }}
                     type='button'
                     className='button-style-2'
                     value={"Add Deck"}></input>
             </div>
             <label htmlFor='new-deck-name'>New Deck Name:</label><br />
-            <input id='new-deck-name' type='text'></input><br />
+            <input autoComplete='off' id='new-deck-name' type='text'></input><br />
         </>
     );
 }
@@ -55,10 +58,13 @@ function NewChapterArea({ db, onAddChapter }) {
                 <input
                     onClick={() => {
                         // Get the new chapter name and selected deck
-                        const id = document.getElementById("new-chapter-name").value;
+                        const id = document.getElementById("new-chapter-name");
                         const target = document.getElementById("deck-select-new-chapt");
                         const deck_name = target.options[target.selectedIndex].text;
-                        onAddChapter(deck_name, id);
+                        // Add new chapter to DB
+                        onAddChapter(deck_name, id.value);
+                        // Reset text input
+                        id.value = "";
                     }}
                     type='button'
                     className='button-style-2'
@@ -69,7 +75,7 @@ function NewChapterArea({ db, onAddChapter }) {
                 {getDeckOptions(db)}
             </select><br />
             <label htmlFor='new-chapter-name' id='new-chapt-name'>New Chapter Name:</label><br />
-            <input id='new-chapter-name' type='text'></input><br />
+            <input autoComplete='off' id='new-chapter-name' type='text'></input><br />
         </div>
     );
 }
@@ -120,7 +126,6 @@ function Content({ db }) {
 }
 
 function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
-    const [toggleBtn, setToggleBtn] = useState(false);  // false => Add Card function
     const [chapterSelection, setChapterSelection] = useState("Chapter 1");
     const [cardOptions, setCardOptions] = useState([]);
     const [cards, setCards] = useState([]);
@@ -134,35 +139,52 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
         const selected = chpt_select.options[chpt_select.selectedIndex];
         setChapterSelection(selected.value);
 
-        // Set card data
+        // Set card data, if it exists
         const data = db.getCards(deckSelection, selected.value);
+        console.log("current data", data);
         setCards(data);
         const results = [];
 
-        // Store results in the results array
-        data.forEach(element => {
+        if (data != []) {
+            // Store results in the results array
+            data.forEach(element => {
+                results.push(
+                    <option key={"Card " + element["id"]} value={element["id"]}>Card {element["id"] + 1}</option>
+                    // <option key={"Card " + element["id"]} value={element}>Card {element["question"]}</option>
+                );
+            });
+        } else {
             results.push(
-                <option key={"Card " + element["id"]} value={element["id"]}>Card {element["id"] + 1}</option>
-                // <option key={"Card " + element["id"]} value={element}>Card {element["question"]}</option>
+                <option key={"No Cards"}>Empty</option>
             );
-        });
+        }
+
         
         setCardOptions(results);
         changeCard();
     }
 
     async function changeCard() {
+        console.log(cards);
         // Get the chapter from input element value
         const chpt_select = document.getElementById('chapter-select');
         const selected = chpt_select.options[chpt_select.selectedIndex];
-        // Set the card displays
-        setCardQuestion(db.getCard(deckSelection, selected.value, cardSelect)["question"]);
-        setCardAnswer(db.getCard(deckSelection, selected.value, cardSelect)["answer"]);
+        // Set the card displays, if cards exist
+        if (db.getChapter(deckSelection, selected.value).size != 0) {
+            setCardQuestion(db.getCard(deckSelection, selected.value, cardSelect)["question"]);
+            setCardAnswer(db.getCard(deckSelection, selected.value, cardSelect)["answer"]);
+        } else {
+            setCardQuestion("");
+            setCardAnswer("");
+        }
+        
     }
 
+    // Load card data on initial load
     useEffect(() => {
         getData();
     }, []);
+    // Update card text on cardSelect state change
     useEffect(() => {
         changeCard();
     }, [cardSelect]);
@@ -171,13 +193,7 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
         <div id='edit-add'>
             <div className='title-button-layout'>
                 <h3>Cards</h3>
-                {/* I think i should change this button style when i start adding states.
-                    Basically, I should render the left-down button classes on default load/
-                    on 2nd click, and 1st click i should render right-down button.
-
-                    Based on this state, I'll allow the select select-card, preload question/answer
-                */}
-                <input type='button' className='button-style-2' value={"Add Edit"}></input><br />
+                <input type='button' className='button-style-2' value={"Add Card"}></input><br />
             </div>
             <div className='select-layout'>
                 <label htmlFor='deck-select'>Select Deck</label>
@@ -219,9 +235,9 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
                 </select><br />
             </div>
             <label>Question:</label><br />
-            <input value={cardQuestion} onChange={() => {}} type='text' id='card-question-text'></input><br />
+            <input autoComplete='off' defaultValue={cardQuestion} onChange={() => {}} type='text' id='card-question-text'></input><br />
             <label>Answer:</label><br />
-            <textarea value={cardAnswer} onChange={() => {}} id='card-answer-text' name='answer' rows='5' cols='40'></textarea>
+            <textarea defaultValue={cardAnswer} onChange={() => {}} id='card-answer-text' name='answer' rows='5' cols='40'></textarea>
         </div>
     );
 }

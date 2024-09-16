@@ -62,9 +62,26 @@
     color: #532593;
     font-weight: 800;
 
-    border: none;
+    border: 3px solid transparent;
     border-radius: 5px;
     width: inherit;
+}
+
+#edit-add textarea {
+    height: 100px;
+    width: inherit;
+
+    background-color: #cba8fc;
+    color: #532593;
+    font-weight: 900;
+
+    border: 3px solid transparent;
+    border-radius: 5px;
+}
+
+#container input[type=text]:focus, #container textarea:focus {
+    border: 3px solid #44bc94;
+    outline: none;
 }
 
 #container h3, #edit-add h3 {
@@ -92,18 +109,6 @@ input.button-style-2 {
 
     cursor: pointer;
     transition: ease-in-out all .2s, transform ;
-}
-
-#edit-add textarea {
-    height: 100px;
-    width: inherit;
-
-    background-color: #cba8fc;
-    color: #532593;
-    font-weight: 900;
-
-    border: none;
-    border-radius: 5px;
 }
 
 input.button-style-2:hover {
