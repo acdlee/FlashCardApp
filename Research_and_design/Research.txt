@@ -18,4 +18,12 @@ let's clean up some of this code
 
 Okay, so now where are we. 
 - Add Deck for card seciton
-- Add Chapter for card section
+
+I think I need to redo a lot of this.
+Something to keep in mind is the page will rerender when a state changes.
+For all our forms, there should be an onChange that updates the state to whatever we selected.
+That should update all the lists.
+We can test this in a controlled environment (ie a new project). Or we can just make a mess. :)
+Apparently reducers are nice when you have state pieces that are depedent on each other, and usestate
+    is nice for indepedent states.
+    -> so maybe i do have a bunch of cases for usereducer.

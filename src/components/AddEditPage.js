@@ -133,20 +133,35 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
     const [cardAnswer, setCardAnswer] = useState("");
     const [cardSelect, setCardSelect] = useState("0");
 
+    let thisOne = "";
+
+    useEffect(() => {
+        const deck_select = document.getElementById('deck-select-edit-add');
+        const deck_selected = deck_select.options[deck_select.selectedIndex];
+        thisOne = deck_selected.value;
+    }, [deckSelection]);
+
     async function getData() {
         // Set chapter state based off input element value
         const chpt_select = document.getElementById('chapter-select');
         const selected = chpt_select.options[chpt_select.selectedIndex];
+        console.log("this is the selected", selected);
         setChapterSelection(selected.value);
 
+        // Get the deck from input element value
+        const deck_select = document.getElementById('deck-select-edit-add');
+        const deck_selected = deck_select.options[deck_select.selectedIndex];
+        handleDeckSelect(deck_selected.value);
+        console.log("Deck selection", deck_selected.value, deckSelection);
+
         // Set card data, if it exists
-        const data = db.getCards(deckSelection, selected.value);
-        console.log("current data", data);
+        const data = db.getCards(thisOne, selected.value);
         setCards(data);
         const results = [];
 
         if (data != []) {
             // Store results in the results array
+            console.log("did not enter the no card clause");
             data.forEach(element => {
                 results.push(
                     <option key={"Card " + element["id"]} value={element["id"]}>Card {element["id"] + 1}</option>
@@ -154,6 +169,7 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
                 );
             });
         } else {
+            console.log("We entered the no cards clause");
             results.push(
                 <option key={"No Cards"}>Empty</option>
             );
@@ -165,15 +181,24 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
     }
 
     async function changeCard() {
-        console.log(cards);
         // Get the chapter from input element value
         const chpt_select = document.getElementById('chapter-select');
         const selected = chpt_select.options[chpt_select.selectedIndex];
+        
+        // Get the deck from input element value
+        const deck_select = document.getElementById('deck-select-edit-add');
+        const deck_selected = deck_select.options[deck_select.selectedIndex];
+        console.log(deckSelection);
+
+        // flag for new deck
+        let new_deck_flag = db.getChapterNames(deck_selected.value).length == 0;
+
         // Set the card displays, if cards exist
-        if (db.getChapter(deckSelection, selected.value).size != 0) {
+        if (db.getChapter(deckSelection, selected.value).size != 0 && !new_deck_flag) {
             setCardQuestion(db.getCard(deckSelection, selected.value, cardSelect)["question"]);
             setCardAnswer(db.getCard(deckSelection, selected.value, cardSelect)["answer"]);
         } else {
+            // if empty chapter or deck, empty card text, select card text, and select chapter text
             setCardQuestion("");
             setCardAnswer("");
         }
@@ -235,9 +260,13 @@ function AddEditCardArea({ db, deckSelection, handleDeckSelect }) {
                 </select><br />
             </div>
             <label>Question:</label><br />
-            <input autoComplete='off' defaultValue={cardQuestion} onChange={() => {}} type='text' id='card-question-text'></input><br />
+            <input autoComplete='off' value={cardQuestion} onChange={(e) => {
+                setCardQuestion(e.target.value);
+            }} type='text' id='card-question-text'></input><br />
             <label>Answer:</label><br />
-            <textarea defaultValue={cardAnswer} onChange={() => {}} id='card-answer-text' name='answer' rows='5' cols='40'></textarea>
+            <textarea value={cardAnswer} onChange={(e) => {
+                setCardAnswer(e.target.value);
+            }} id='card-answer-text' name='answer' rows='5' cols='40'></textarea>
         </div>
     );
 }
