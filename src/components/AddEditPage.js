@@ -201,7 +201,7 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
 
     useEffect(() => {
         updateCardOptions();
-        updateDisplayCard();
+        updateDisplayCard(null);
     }, [currentDeck, currentChapter]);
 
     useEffect(() => {

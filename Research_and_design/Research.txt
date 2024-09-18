@@ -22,3 +22,9 @@ options based on the currentDeck state.
 --> Basically, add a dummy state variable that goes from NewChapterArea to 
 EditAddCardArea and add that state to the useEffect that deals with creating 
 the chapter options
+
+- Need to change card display based off Chapter/Deck change.
+-> There's comments in updateDisplayCard to lead you to do this.
+	Also, the call for this update happens in the useEffect(f', [currDeck, currChapt]),
+	with a 'null' parameter to flag the update function for different code to set
+	the display.
