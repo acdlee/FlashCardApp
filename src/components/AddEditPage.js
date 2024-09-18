@@ -55,8 +55,12 @@ function NewChapterArea({ db, deckNames, updateChptState }) {
 
     function addNewChapter() {
         // Add the new chapter from the input element to the database
-        const newChapterName = document.getElementById('new-chapter-name').value;
-        db.addChapter(currentDeck, newChapterName);
+        const newChapterName = document.getElementById('new-chapter-name');
+        // Add the new chapter to the database
+        db.addChapter(currentDeck, newChapterName.value);
+        // Reset input text
+        newChapterName.value = "";
+        // Update chapter names state 
         updateChptState(db.getChapterNames(currentDeck));
     }
 
@@ -124,6 +128,9 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
     // We can create our own hook for these two
     const [deckOptions, setDeckOptions] = useState([]);
     const [chapterOptions, setChapterOptions] = useState([]);
+    const [cardOptions, setCardOptions] = useState([]);
+    const [cardQuestion, setCardQuestion] = useState("");
+    const [cardAnswer, setCardAnswer] = useState("");
 
     function updateDeckOptions() {
         // Create a new set of deck options
@@ -141,15 +148,46 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
         setCurrentDeck(selectedDeck);
     }
 
+    function onChapterSelect(e) {
+        // Update state based off select list
+        const selectedChpt = e.target.options[e.target.selectedIndex].value;
+        setCurrentChapter(selectedChpt);
+    }
+
     function updateChapterOptions() {
         // Create a new set of chapter options
-        // !! This should just use a state variable called chapterNames?
         const chapterOpts = db.getChapterNames(currentDeck).map((name, index) => (
             <option key={index}>{name}</option>
         ));
 
         // Update chapterOptions state
         setChapterOptions(chapterOpts);
+    }
+
+    function updateCardOptions() {
+        // Create a new set of card options
+        const cardOpts = db.getCards(currentDeck, currentChapter).map((card, index) => (
+            <option key={index} value={card.id}>Card {card.id + 1}</option>
+        ));
+        
+        // Update cardOptions state
+        setCardOptions(cardOpts);
+    }
+
+    function updateDisplayCard(e) {
+        // Check if update is coming from card-select or deck/chapter change
+        if (e == null) {
+            // Update state based off deck/chapter select change
+            // Grab card data based off current deck/chapter
+            // Set display card data, if it exists
+        } else {
+            // Update state based off card select list
+            const selectedCard = e.target.options[e.target.selectedIndex].value;
+            const targetCard = db.getCard(currentDeck, currentChapter, selectedCard);
+            setCardQuestion(targetCard.question);
+            setCardAnswer(targetCard.answer);
+        }
+        
     }
 
     // When deckNames changes, update the deck select options
@@ -160,6 +198,18 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
     useEffect(() => {
         updateChapterOptions();
     }, [currentDeck, chptNamesState]);
+
+    useEffect(() => {
+        updateCardOptions();
+        updateDisplayCard();
+    }, [currentDeck, currentChapter]);
+
+    useEffect(() => {
+        // On initial load, populate card text
+        const targetCard = db.getCard(currentDeck, currentChapter, 0);
+        setCardQuestion(targetCard.question);
+        setCardAnswer(targetCard.answer);
+    }, []);
 
     return (
         <div id='edit-add'>
@@ -180,7 +230,8 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
             </div>
             <div className='select-layout'>
                 <label htmlFor='chapter-select'>Select Chapter</label>
-                <select 
+                <select
+                    onChange={(e) => onChapterSelect(e)}
                     id='chapter-select'
                     name='chapter-select' 
                     className='select-style'>
@@ -189,15 +240,36 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
             </div>
             <div className='select-layout'>
                 <label htmlFor='card-select'>Select Card</label>
-                <select 
-                    id='card-select' name='card-select' className='select-style'>
-                    {}
+                <select
+                    onChange={(e) => updateDisplayCard(e)}
+                    id='card-select'
+                    name='card-select'
+                    className='select-style'
+                >
+                    {cardOptions}
                 </select><br />
             </div>
             <label>Question:</label><br />
-            <input autoComplete='off' type='text' id='card-question-text'></input><br />
+            <input
+                value={cardQuestion}
+                onChange={(e) => {
+                    setCardQuestion(e.target.value);
+                }}
+                autoComplete='off'
+                type='text'
+                id='card-question-text'
+            ></input><br />
             <label>Answer:</label><br />
-            <textarea id='card-answer-text' name='answer' rows='5' cols='40'></textarea>
+            <textarea
+                value={cardAnswer}
+                onChange={(e) => {
+                    setCardAnswer(e.target.value);
+                }}
+                id='card-answer-text'
+                name='answer'
+                rows='5'
+                cols='40'
+            ></textarea>
         </div>
     );
 }
