@@ -14,16 +14,11 @@ hover color you have everywhere else.
 need to set the selected psuedo classes for a lot of elements
 
 
-let's clean up some of this code
-
-Okay, so now where are we. 
-- Add Deck for card seciton
-
-I think I need to redo a lot of this.
-Something to keep in mind is the page will rerender when a state changes.
-For all our forms, there should be an onChange that updates the state to whatever we selected.
-That should update all the lists.
-We can test this in a controlled environment (ie a new project). Or we can just make a mess. :)
-Apparently reducers are nice when you have state pieces that are depedent on each other, and usestate
-    is nice for indepedent states.
-    -> so maybe i do have a bunch of cases for usereducer.
+- Found a "hacky" way to update the chapter names:
+When you add a new chapter in the NewChapterArea, you update
+and arbitrary state associated with chapter names in the parent, and you pass
+that state to the Cards area and add that state to the useEffect that updates the chapter
+options based on the currentDeck state.
+--> Basically, add a dummy state variable that goes from NewChapterArea to 
+EditAddCardArea and add that state to the useEffect that deals with creating 
+the chapter options
