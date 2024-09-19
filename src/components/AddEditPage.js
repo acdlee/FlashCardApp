@@ -157,6 +157,7 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
     function onChapterSelect(e) {
         // Update state based off select list
         const selectedChpt = e.target.options[e.target.selectedIndex].value;
+        console.log(selectedChpt);
         setCurrentChapter(selectedChpt);
     }
 
@@ -208,6 +209,38 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
         toggle(!toggleButton);
     }
 
+    function onCardButtonClick() {
+        if (toggleButton) {   // Edit card
+            // Get the card id
+            const targetCard = document.getElementById('card-select').value;
+            // Edit the card using the database
+            db.editCard(
+                currentDeck,
+                currentChapter,
+                targetCard,
+                cardQuestion,
+                cardAnswer
+            );
+        } else {        // Add card
+            console.log(currentDeck, currentChapter);
+            // Create the new card
+            const newCard = {
+                "question": cardQuestion,
+                "answer": cardAnswer
+            };
+            console.log(newCard);
+            // Add the new card to the database
+            db.addCard(
+                currentDeck,
+                currentChapter,
+                newCard
+            );
+
+            // Update card options state
+            updateCardOptions();
+        }
+    }
+
     // useEffect section
     useEffect(() => {
         // When deckNames changes, update the deck select options
@@ -246,6 +279,7 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
                     <span className="slider round"></span>
                 </label>
                 <input 
+                    onClick={onCardButtonClick}
                     type='button'
                     className='button-style-2'
                     value={toggleButton ? "Edit Card" : "Add Card"}
