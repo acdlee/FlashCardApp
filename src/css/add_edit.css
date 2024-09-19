@@ -126,7 +126,7 @@ input.button-style-2:active {
     position: relative;
     display: inline-block;
     width: 60px;
-    height: 28px;
+    height: 34px;
 }
 
 .switch input { 
@@ -142,7 +142,7 @@ input.button-style-2:active {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #8bd4bd;
+    background-color: #a9c5bc;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -150,10 +150,10 @@ input.button-style-2:active {
 .slider:before {
     position: absolute;
     content: "";
-    height: 24px;
-    width: 24px;
-    left: 6px;
-    bottom: 2px;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
@@ -175,7 +175,7 @@ input:checked + .slider:before {
 
 /* Rounded sliders */
 .slider.round {
-    border-radius: 28px;
+    border-radius: 34px;
 }
 
 .slider.round:before {

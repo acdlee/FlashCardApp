@@ -124,15 +124,20 @@ function Content({ db }) {
 }
 
 function AddEditCardArea({ db, deckNames, chptNamesState }) {
+    // Deck/Chapter states
     const [currentDeck, setCurrentDeck] = useState("Deck 0");
-    const [currentChapter, setCurrentChapter] = useState("Chapter 1");
-    // We can create our own hook for these two
+    const [currentChapter, setCurrentChapter] = useState("Chapter 1");    
+    // Select list option states
     const [deckOptions, setDeckOptions] = useState([]);
     const [chapterOptions, setChapterOptions] = useState([]);
     const [cardOptions, setCardOptions] = useState([]);
+    // Card display states
     const [cardQuestion, setCardQuestion] = useState("");
     const [cardAnswer, setCardAnswer] = useState("");
+    // UI states (eg toggle button)
+    const [toggleButton, toggle] = useState(false);
 
+    // State-related functions
     function updateDeckOptions() {
         // Create a new set of deck options
         const deckOpts = deckNames.map((name, index) => (
@@ -197,8 +202,15 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
         }
     }
 
-    // When deckNames changes, update the deck select options
+    function onToggle(e) {
+        // console.log(e.target.checked);
+        //if e.target.checked = true => green & "update card" mode
+        toggle(!toggleButton);
+    }
+
+    // useEffect section
     useEffect(() => {
+        // When deckNames changes, update the deck select options
         updateDeckOptions();
     }, [deckNames]);
 
@@ -221,15 +233,23 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
         setCardAnswer(targetCard.answer);
     }, []);
 
+    // JSX
     return (
         <div id='edit-add'>
             <div className='title-button-layout'>
                 <h3>Cards</h3>
-                <label class="switch">
-                    <input type="checkbox"></input>
-                    <span class="slider round"></span>
+                <label className="switch">
+                    <input
+                        type="checkbox"
+                        onClick={(e) => {onToggle(e)}}
+                    ></input>
+                    <span className="slider round"></span>
                 </label>
-                <input type='button' className='button-style-2' value={"Add Card"}></input><br />
+                <input 
+                    type='button'
+                    className='button-style-2'
+                    value={toggleButton ? "Edit Card" : "Add Card"}
+                ></input><br />
             </div>
             <div className='select-layout'>
                 <label htmlFor='deck-select'>Select Deck</label>

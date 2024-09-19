@@ -13,15 +13,17 @@ hover color you have everywhere else.
 *
 need to set the selected psuedo classes for a lot of elements
 
+*
+make the toggle button your own.
+idea: you can do an animation, where clicking the toggle button drops
+	the forward slash down below the word "Edit" in the h2 title.
+	you can also add a kind of light effect.. im just going to draw it.
+	the drawing is in your schedule book.
 
-OKAY, so now it's time for the actual Add/Edit logic of this page (lol).
-
-- Need UI for a toggle: allow the user to choose their action (Adding vs Editing a card)
--> I want to place this toggle botton right between New Card and Add Card Button
--> Update the text in the button to the right; alternate between "Add Card" and "Edit Card"
--> Trigger the click styling when you toggle the button, so the user is directed on 
-	what changed/what's happened
-
+*I want to think about how to do this next part. 
+------> need to plan and think about the code you'll write.
+		the more you plan, the less likely you are to go back and
+		have to redo things (or the entire thing).
 - Disable certain select lists in the NewCardArea based on toggle 
 -> for example, user shouldn't be able to use the select card list if they're
 	just adding a card to the deck
