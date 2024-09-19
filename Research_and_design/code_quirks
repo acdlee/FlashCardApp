@@ -1,0 +1,8 @@
+Found a "hacky" way to update the chapter names:
+When you add a new chapter in the NewChapterArea, you update
+and arbitrary state associated with chapter names in the parent, and you pass
+that state to the Cards area and add that state to the useEffect that updates the chapter
+options based on the currentDeck state.
+--> Basically, add a dummy state variable that goes from NewChapterArea to 
+EditAddCardArea and add that state to the useEffect that deals with creating 
+the chapter options

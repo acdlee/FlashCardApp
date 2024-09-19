@@ -225,6 +225,10 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
         <div id='edit-add'>
             <div className='title-button-layout'>
                 <h3>Cards</h3>
+                <label class="switch">
+                    <input type="checkbox"></input>
+                    <span class="slider round"></span>
+                </label>
                 <input type='button' className='button-style-2' value={"Add Card"}></input><br />
             </div>
             <div className='select-layout'>

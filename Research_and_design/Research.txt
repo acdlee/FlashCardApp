@@ -14,17 +14,17 @@ hover color you have everywhere else.
 need to set the selected psuedo classes for a lot of elements
 
 
-- Found a "hacky" way to update the chapter names:
-When you add a new chapter in the NewChapterArea, you update
-and arbitrary state associated with chapter names in the parent, and you pass
-that state to the Cards area and add that state to the useEffect that updates the chapter
-options based on the currentDeck state.
---> Basically, add a dummy state variable that goes from NewChapterArea to 
-EditAddCardArea and add that state to the useEffect that deals with creating 
-the chapter options
+OKAY, so now it's time for the actual Add/Edit logic of this page (lol).
 
-- Need to change card display based off Chapter/Deck change.
--> There's comments in updateDisplayCard to lead you to do this.
-	Also, the call for this update happens in the useEffect(f', [currDeck, currChapt]),
-	with a 'null' parameter to flag the update function for different code to set
-	the display.
+- Need UI for a toggle: allow the user to choose their action (Adding vs Editing a card)
+-> I want to place this toggle botton right between New Card and Add Card Button
+-> Update the text in the button to the right; alternate between "Add Card" and "Edit Card"
+-> Trigger the click styling when you toggle the button, so the user is directed on 
+	what changed/what's happened
+
+- Disable certain select lists in the NewCardArea based on toggle 
+-> for example, user shouldn't be able to use the select card list if they're
+	just adding a card to the deck
+--> achieve this with: pointer-events:none; and also change the color to a gray
+
+- After all that, handle the logic behind edit/add on the backend
