@@ -145,6 +145,9 @@ class Chapter {
         if (id < this.id) { // ensure the card exists
             return this.#cards[id];
         }
+
+        // return undefined if you can't find the card
+        return undefined;
     }
 
     printCards() {

@@ -1,3 +1,4 @@
+// Test
 import { useState, useEffect } from 'react';
 
 function PageTitle() {
@@ -174,20 +175,26 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
         setCardOptions(cardOpts);
     }
 
-    function updateDisplayCard(e) {
-        // Check if update is coming from card-select or deck/chapter change
-        if (e == null) {
-            // Update state based off deck/chapter select change
-            // Grab card data based off current deck/chapter
-            // Set display card data, if it exists
-        } else {
+    function updateDisplayCard(e=false) {
+        // we could make this function really cool, lots of repeated code
+        if (e) {
             // Update state based off card select list
             const selectedCard = e.target.options[e.target.selectedIndex].value;
             const targetCard = db.getCard(currentDeck, currentChapter, selectedCard);
             setCardQuestion(targetCard.question);
             setCardAnswer(targetCard.answer);
+        } else {
+            // Update state based off deck and chapter select list
+            const targetCard = db.getCard(currentDeck, currentChapter, 0);  // default Card 0
+            if (targetCard) {
+                // If the card exists, load data
+                setCardQuestion(targetCard.question);
+                setCardAnswer(targetCard.answer);
+            } else {
+                setCardQuestion("");
+                setCardAnswer("");
+            }
         }
-        
     }
 
     // When deckNames changes, update the deck select options
@@ -201,7 +208,10 @@ function AddEditCardArea({ db, deckNames, chptNamesState }) {
 
     useEffect(() => {
         updateCardOptions();
-        updateDisplayCard(null);
+    }, [currentDeck, currentChapter]);
+
+    useEffect(() => {
+        updateDisplayCard();
     }, [currentDeck, currentChapter]);
 
     useEffect(() => {
