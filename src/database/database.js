@@ -269,10 +269,16 @@ export class DB {
          * @param {string} chapter_name - Target chapter name
          * @param {object} card - New flashcard values
          */
+        console.log("Entered the function.");
+        let truthy = (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
+        && this.hasChapter(deck_name, chapter_name))
+        console.log(deck_name, chapter_name, this.hasDeck(deck_name), this.hasChapter(deck_name, chapter_name));
         if (deck_name != '' && chapter_name != '' && this.hasDeck(deck_name)
             && this.hasChapter(deck_name, chapter_name)) { // empty and existence checks
                 this.#data[deck_name].getChapter(chapter_name).addCard(card["question"], card["answer"]);
+                console.log("Inside db.js: ", this.#data[deck_name].getChapter(chapter_name).getCard(0));
         }
+        console.log("Left the function");
     }
 
     addChapter(deck_name, chapter_name) {
